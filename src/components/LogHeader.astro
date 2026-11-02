@@ -1,0 +1,18 @@
+---
+// Log-style entry header: every factual page shows published + last reviewed.
+import { isoDate } from '../lib/format.mjs';
+interface Props { entry?: string; published: Date | string; reviewed: Date | string; position?: string; sourceCount?: number; extra?: { label: string; value: string }[] }
+const { entry, published, reviewed, position, sourceCount, extra = [] } = Astro.props;
+const p = isoDate(published);
+const r = isoDate(reviewed);
+---
+<div class="log">
+  {entry && <span class="entry">{entry}</span>}
+  <dl>
+    <div><dt>Published</dt><dd><time datetime={p}>{p}</time></dd></div>
+    <div><dt>Last reviewed</dt><dd><time datetime={r}>{r}</time></dd></div>
+    {position && <div><dt>Position</dt><dd class="coord">{position}</dd></div>}
+    {sourceCount !== undefined && <div><dt>Sources</dt><dd><a href="#sources">{sourceCount} listed</a></dd></div>}
+    {extra.map((x) => <div><dt>{x.label}</dt><dd>{x.value}</dd></div>)}
+  </dl>
+</div>

@@ -1,0 +1,22 @@
+---
+import Doc from '../layouts/Doc.astro';
+import { site, publisher, labels, disclosure } from '../../site.config.mjs';
+import { publishedCompanies } from '../lib/feed.mjs';
+const founders = publishedCompanies().filter((c) => c.founder_owned);
+---
+<Doc title="Publisher disclosure" path="/disclosure" entry="Disclosure" published={site.firstPublished} reviewed={site.firstPublished} legalPage
+  description={`${site.name} is published by ${publisher.name}. This page sets out the commercial relationships that a reader should know about.`}>
+  <h2>Publisher</h2>
+  <p>{disclosure.short}</p>
+  <h2>Founder-owned brands</h2>
+  <p>{disclosure.founderNote}</p>
+  {founders.length > 0 && <p>Founder-owned brands currently listed: {founders.map((c, i) => <>{i > 0 && ', '}<a href={`/operators/${c.id}`}>{c.name}</a></>)}.</p>}
+  <h2>Directory tiers</h2>
+  <p>Companies in the {publisher.name} directory hold one of these tiers: {Object.values(labels.tiers).join(', ')}. Tiers decide what a company's entry may link to (see <a href="/how-we-rank">How we rank</a>). Tiers do not decide rank.</p>
+  <h2>Paid placements</h2>
+  <p>{disclosure.adSlotNote} Each one carries the label "{labels.advertisement}". At the time of the last review there are no paid placements on this site.</p>
+  <h2>Sponsored links</h2>
+  <p>{disclosure.sponsoredLinkNote}</p>
+  <h2>Analytics</h2>
+  <p>The site uses Vercel Web Analytics only, which does not use cookies. There is no advertising tracking. See the <a href="/privacy">Privacy Policy</a>.</p>
+</Doc>

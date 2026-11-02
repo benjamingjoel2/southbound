@@ -1,0 +1,62 @@
+---
+import Base from '../../layouts/Base.astro';
+import LogHeader from '../../components/LogHeader.astro';
+import Sources from '../../components/Sources.astro';
+import AdSlot from '../../components/AdSlot.astro';
+import CompanyEntry from '../../components/CompanyEntry.astro';
+import { niches } from '../../lib/niches.mjs';
+import { rankedList } from '../../lib/feed.mjs';
+import { feedDate, feedSourceLabel } from '../../lib/feedmeta.mjs';
+import { itemListNode, articleNode } from '../../lib/schema.mjs';
+import { site, publisher, disclosure } from '../../../site.config.mjs';
+
+export function getStaticPaths() {
+  return niches.map((niche) => ({ params: { niche: niche.slug }, props: { niche } }));
+}
+const { niche } = Astro.props;
+const { ranked, unranked } = rankedList(niche);
+const path = `/rankings/${niche.slug}`;
+const n = ranked.length;
+const description = `${niche.title}: ${n === 0 ? 'no verified companies listed yet' : `${n} verified ${n === 1 ? 'company' : 'companies'}`}, in the order of the Tourground directory rank. Never paid.`;
+const sources = [
+  { url: `${site.url}/how-we-rank`, label: feedSourceLabel() },
+  ...[...ranked, ...unranked].map((c) => ({ url: c.profile_url, label: `${c.name}: Tourground profile` })),
+];
+---
+<Base
+  title={niche.title}
+  description={description}
+  path={path}
+  crumbs={[{ name: 'Operators', href: '/rankings' }, { name: niche.short, href: path }]}
+  schema={[n > 0 && itemListNode({ path, name: niche.title, companies: ranked }), articleNode({ path, title: niche.title, description, published: site.firstPublished, modified: feedDate(), sources: [] })]}
+  pageType="CollectionPage"
+>
+  <div class="page">
+    <div class="margin">
+      <LogHeader entry="Ranked list" published={site.firstPublished} reviewed={feedDate()} sourceCount={sources.length} extra={[{ label: 'Listed', value: `${n} ranked${unranked.length ? `, ${unranked.length} unranked` : ''}` }]} />
+    </div>
+    <div class="body">
+      <h1>{niche.title}</h1>
+      <p class="lede">{niche.intro}</p>
+      {niche.guide && <p>Background: <a href={niche.guide}>read the related guide page</a>.</p>}
+      <AdSlot />
+      <p class="disclosure"><strong>How this list is ordered.</strong> {disclosure.rankingNote} {disclosure.verifiedOnly} <a href="/how-we-rank">How we rank</a>.</p>
+      {n === 0 ? (
+        <p class="empty">No verified company in the directory feed carries this specialty yet. The list stays empty rather than padded.</p>
+      ) : (
+        <ol class="ranked" aria-label={niche.title}>
+          {ranked.map((c, i) => <CompanyEntry c={c} position={i + 1} />)}
+        </ol>
+      )}
+      {unranked.length > 0 && (
+        <>
+          <h2>Verified, not yet ranked</h2>
+          <p>These companies carry this specialty in the feed but have no rank for Antarctica yet. Shown in feed order.</p>
+          <ul class="ranked">{unranked.map((c) => <CompanyEntry c={c} />)}</ul>
+        </>
+      )}
+      <p class="disclosure">{disclosure.founderNote}</p>
+      <Sources sources={sources} />
+    </div>
+  </div>
+</Base>

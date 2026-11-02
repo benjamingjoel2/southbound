@@ -1,0 +1,73 @@
+---
+import Base from '../layouts/Base.astro';
+import LogHeader from '../components/LogHeader.astro';
+import Sources from '../components/Sources.astro';
+import glance from '../../content/antarctica/data/glance.json';
+import { guidePages, questionPages } from '../lib/content';
+import { niches } from '../lib/niches.mjs';
+import { publishedCompanies, rankedList } from '../lib/feed.mjs';
+import { feedDate } from '../lib/feedmeta.mjs';
+import { destinationNode, articleNode } from '../lib/schema.mjs';
+import { formatCoord, isoDate, placeCoord } from '../lib/format.mjs';
+import { site, publisher, disclosure } from '../../site.config.mjs';
+
+const guide = await guidePages();
+const qs = await questionPages();
+const companies = publishedCompanies();
+const srcIndex = Object.fromEntries(glance.sources.map((s, i) => [s.id, i + 1]));
+const allDates = [...guide, ...qs].map((e) => isoDate(e.data.reviewed)).concat(glance.reviewed, feedDate());
+const reviewed = allDates.sort().at(-1);
+const description = site.positioning;
+const recent = [...guide.map((e) => ({ e, href: `/guide/${e.id}` })), ...qs.map((e) => ({ e, href: `/questions/${e.id}` }))]
+  .sort((a, b) => +b.e.data.reviewed - +a.e.data.reviewed || a.e.data.order - b.e.data.order)
+  .slice(0, 6);
+---
+<Base title="Home" description={description} path="/"
+  schema={[destinationNode(), articleNode({ path: '/', title: `${site.name}: Antarctic expedition reference`, description, published: glance.published, modified: reviewed, sources: glance.sources })]}>
+  <div class="page">
+    <div class="margin">
+      <LogHeader entry="Log · front page" published={glance.published} reviewed={reviewed} position={formatCoord(site.geo.lat, site.geo.lon)} sourceCount={glance.sources.length} />
+    </div>
+    <div class="body">
+      <h1>The reference for choosing an Antarctic expedition</h1>
+      <p class="lede">Routes, seasons, ships, departure ports and the verified expedition operators who run them, with a date and a source on every fact.</p>
+      <p>{site.name} is an independent reference published by <a href={publisher.url}>{publisher.name}</a>. {disclosure.verifiedOnly} Rankings come from the directory feed and are never paid for: see <a href="/how-we-rank">how we rank</a>.</p>
+
+      <h2>Antarctica at a glance</h2>
+      <dl class="facts position">
+        {glance.items.map((it) => (
+          <div>
+            <dt>{it.label}</dt>
+            <dd>
+              <span set:html={it.html} />
+              {it.places && <span class="coord"> {it.places.map((k) => placeCoord(k).coord).join(' · ')}</span>}
+              {it.sources.map((id) => <sup> <a href={`#src-${srcIndex[id]}`} aria-label={`Source ${srcIndex[id]}`}>[{srcIndex[id]}]</a></sup>)}
+            </dd>
+          </div>
+        ))}
+      </dl>
+
+      <h2>Sections</h2>
+      <ol class="index">
+        <li><a href="/guide"><span class="t">Destination guide</span><span class="c">{guide.length} pages</span><span class="d">Regions, the season, departure ports, the Drake Passage, ship sizes, the Antarctic Circle, packing.</span></a></li>
+        <li><a href="/season"><span class="t">Season chart, November to March</span><span class="c">reference table</span><span class="d">Sea ice, daylight, penguin breeding stages, whale sightings and temperatures by month.</span></a></li>
+        <li><a href="/compare"><span class="t">Departure ports and routes compared</span><span class="c">reference table</span><span class="d">Ushuaia, Punta Arenas and fly-cruise: crossing time, days on the ice, typical trip length.</span></a></li>
+        <li><a href="/rankings"><span class="t">Verified operators, ranked by specialty</span><span class="c">{companies.length} {companies.length === 1 ? 'company' : 'companies'}</span><span class="d">{niches.map((n) => n.short).join(', ')}.</span></a></li>
+        <li><a href="/questions"><span class="t">Questions travellers ask</span><span class="c">{qs.length} answered</span><span class="d">Short answer first, then the detail and the sources.</span></a></li>
+      </ol>
+
+      <h2>Latest log entries</h2>
+      <ul class="index">
+        {recent.map(({ e, href }) => (
+          <li><a href={href}><span class="t">{e.data.title}</span><span class="c">reviewed {isoDate(e.data.reviewed)}</span></a></li>
+        ))}
+      </ul>
+
+      <h2>Ranked lists</h2>
+      <ul>
+        {niches.map((n) => <li><a href={`/rankings/${n.slug}`}>{n.title}</a> <span class="mono">({rankedList(n).ranked.length})</span></li>)}
+      </ul>
+      <Sources sources={glance.sources} />
+    </div>
+  </div>
+</Base>

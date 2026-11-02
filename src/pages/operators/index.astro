@@ -1,0 +1,33 @@
+---
+import Base from '../../layouts/Base.astro';
+import LogHeader from '../../components/LogHeader.astro';
+import { publishedCompanies, countryName } from '../../lib/feed.mjs';
+import { feedDate } from '../../lib/feedmeta.mjs';
+import { site, labels, disclosure } from '../../../site.config.mjs';
+
+const companies = [...publishedCompanies()].sort((a, b) => a.name.localeCompare(b.name));
+const description = 'Every verified or founder-owned Antarctic operator published on Southbound, A to Z, with links to each company record.';
+---
+<Base title="Operator index, A to Z" description={description} path="/operators" crumbs={[{ name: 'Operators', href: '/operators' }]} pageType="CollectionPage">
+  <div class="page">
+    <div class="margin">
+      <LogHeader entry="Operators · A to Z" published={site.firstPublished} reviewed={feedDate()} extra={[{ label: 'Companies', value: String(companies.length) }]} />
+    </div>
+    <div class="body">
+      <h1>Operator index, A to Z</h1>
+      <p class="lede">{description}</p>
+      <p class="disclosure">{disclosure.verifiedOnly} This index is alphabetical; for merit order, see the <a href="/rankings">ranked lists</a>.</p>
+      {companies.length === 0 ? <p class="empty">No companies are published yet.</p> : (
+        <ul class="index">
+          {companies.map((c) => (
+            <li><a href={`/operators/${c.id}`}>
+              <span class="t">{c.name}</span>
+              <span class="c">{c.country_base} · {c.founder_owned ? labels.founderOwned : labels.tiers[c.tier]}</span>
+              <span class="d">{labels.kinds[c.kind]}, based in {countryName(c.country_base)}{c.is_example ? '. ' + labels.example : ''}</span>
+            </a></li>
+          ))}
+        </ul>
+      )}
+    </div>
+  </div>
+</Base>

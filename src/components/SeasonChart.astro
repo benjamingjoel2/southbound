@@ -1,0 +1,32 @@
+---
+// Signature feature 1: the season chart, November to March. Every row cites
+// its sources (numbered against the page's source list).
+import season from '../../content/antarctica/data/season.json';
+const srcIndex = Object.fromEntries(season.sources.map((s, i) => [s.id, i + 1]));
+const maxDay = 24;
+---
+<figure class="season" aria-labelledby="season-cap">
+  <div class="table-wrap">
+    <table>
+      <caption id="season-cap">{season.caption}</caption>
+      <thead>
+        <tr><th scope="col">Measure</th>{season.months.map((m) => <th scope="col">{m}</th>)}</tr>
+      </thead>
+      <tbody>
+        {season.rows.map((row) => (
+          <tr>
+            <th scope="row">{row.label}{row.sources.map((id) => <sup> <a href={`#src-${srcIndex[id]}`} aria-label={`Source ${srcIndex[id]}`}>[{srcIndex[id]}]</a></sup>)}</th>
+            {row.cells.map((c) => (
+              <td>
+                {c.text}
+                {row.kind === 'daylight' && typeof c.value === 'number' && <span class="bar" aria-hidden="true"><i style={`width:${Math.round((c.value / maxDay) * 100)}%`}></i></span>}
+                {row.kind === 'level' && typeof c.level === 'number' && <span class="ice" aria-hidden="true">{[1, 2, 3].map((l) => <b class={l <= c.level ? 'on' : ''}></b>)}</span>}
+              </td>
+            ))}
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <p class="season-legend">{season.legend}</p>
+</figure>

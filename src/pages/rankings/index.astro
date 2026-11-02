@@ -1,0 +1,34 @@
+---
+import Base from '../../layouts/Base.astro';
+import LogHeader from '../../components/LogHeader.astro';
+import { niches } from '../../lib/niches.mjs';
+import { rankedList, publishedCompanies } from '../../lib/feed.mjs';
+import { feedDate } from '../../lib/feedmeta.mjs';
+import { site, disclosure } from '../../../site.config.mjs';
+
+const lists = niches.map((n) => ({ n, count: rankedList(n).ranked.length }));
+const total = publishedCompanies().length;
+const description = 'Ranked lists of verified Antarctic expedition operators by specialty, ordered only by the Tourground directory rank.';
+---
+<Base title="Antarctic expedition operators, ranked by specialty" description={description} path="/rankings" crumbs={[{ name: 'Operators', href: '/rankings' }]} pageType="CollectionPage">
+  <div class="page">
+    <div class="margin">
+      <LogHeader entry="Rankings · index" published={site.firstPublished} reviewed={feedDate()} extra={[{ label: 'Companies', value: `${total} published` }]} />
+    </div>
+    <div class="body">
+      <h1>Antarctic expedition operators, ranked by specialty</h1>
+      <p class="lede">{description}</p>
+      <p class="disclosure">{disclosure.verifiedOnly} {disclosure.rankingNote} Counts below are computed from the feed at build time.</p>
+      <ol class="index">
+        {lists.map(({ n, count }) => (
+          <li><a href={`/rankings/${n.slug}`}>
+            <span class="t">{n.title}</span>
+            <span class="c">{count} {count === 1 ? 'company' : 'companies'}</span>
+            <span class="d">{n.intro}</span>
+          </a></li>
+        ))}
+      </ol>
+      <p>All published companies, A to Z: <a href="/operators">operator index</a>. Side-by-side facts: <a href="/compare#operators">operator comparison table</a>.</p>
+    </div>
+  </div>
+</Base>

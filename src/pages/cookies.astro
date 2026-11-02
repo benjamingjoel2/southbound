@@ -1,0 +1,18 @@
+---
+import Doc from '../layouts/Doc.astro';
+import { site, legal } from '../../site.config.mjs';
+const sources = [{ url: legal.analytics.providerUrl, label: 'Vercel: Web Analytics privacy and compliance' }];
+---
+<Doc title="Cookie Policy" path="/cookies" entry="Legal · cookies" published={legal.effectiveDate} reviewed={legal.effectiveDate} legalPage sources={sources}
+  description={`${site.name} does not set cookies and does not use any similar technology to track you.`}>
+  <h2>Cookies we use</h2>
+  <p>None. {site.name} does not set any cookies, first-party or third-party, and does not store anything in your browser's local storage.</p>
+  <h2>Analytics without cookies</h2>
+  <p>We measure page views with {legal.analytics.provider}, which works without cookies. It distinguishes visits using a hash created from the incoming request that is discarded after 24 hours, and reports only aggregated statistics. Details are in the <a href="/privacy">Privacy Policy</a>.</p>
+  <h2>Why there is no cookie banner</h2>
+  <p>Because the site stores nothing on your device and reads nothing from it beyond what is needed to deliver the page, there is nothing to consent to. If that ever changes, we will update this page and ask for consent where the law requires it before setting any non-essential cookie.</p>
+  <h2>Other websites</h2>
+  <p>Websites we link to, including the Tourground directory and company websites, may set their own cookies under their own policies.</p>
+  <h2>Contact</h2>
+  <p><a href={`mailto:${site.email}`}>{site.email}</a></p>
+</Doc>

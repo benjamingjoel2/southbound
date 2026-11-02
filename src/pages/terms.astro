@@ -1,0 +1,36 @@
+---
+import Doc from '../layouts/Doc.astro';
+import { site, publisher, legal, disclosure } from '../../site.config.mjs';
+---
+<Doc title="Terms of use" path="/terms" entry="Legal · terms" published={legal.effectiveDate} reviewed={legal.effectiveDate} legalPage
+  description={`The terms that apply when you use ${site.name} (${site.domain}).`}>
+  <h2>1. About these terms</h2>
+  <p>{site.name} is published by {legal.controller}. By using the site you agree to these terms. If you do not agree, please do not use the site.</p>
+
+  <h2>2. What the site is, and is not</h2>
+  <p>{site.name} is a free reference publication. It does not sell trips, take bookings or handle payments, and it is not a travel agent or tour operator. Any booking you make is with the company concerned, under that company's own terms.</p>
+
+  <h2>3. Accuracy</h2>
+  <p>We write from cited sources and show when each page was last reviewed. Expedition conditions in Antarctica change with weather, ice and regulations, and companies change what they offer. Information may be incomplete or out of date. Check important details, including itineraries, prices, entry requirements, insurance and health requirements, with the company you book with and with official sources before you rely on them. The site does not give medical, legal, financial or safety advice.</p>
+
+  <h2>4. Company listings and rankings</h2>
+  <p>Company information comes from the {publisher.name} directory. {disclosure.verifiedOnly} {disclosure.rankingNote} A listing is not an endorsement or a guarantee of any company's services.</p>
+
+  <h2>5. Links</h2>
+  <p>We link to other websites, including the {publisher.name} directory, company websites and our sources. We do not control them and are not responsible for their content or practices.</p>
+
+  <h2>6. Using our content</h2>
+  <p>You may read, print and quote short extracts of the site for personal use or for reporting and commentary, with a link to the page you quote. Any other copying, republishing or systematic extraction needs our written permission. Search engines and AI assistants may index and cite the site as set out in our <a href="/robots.txt">robots.txt</a>.</p>
+
+  <h2>7. Liability</h2>
+  <p>To the extent the law allows, the site is provided "as is" and we are not liable for loss arising from your use of it or reliance on it. Nothing in these terms excludes or limits liability that cannot be excluded or limited by law, including liability for death or personal injury caused by negligence, for fraud, or your statutory rights as a consumer.</p>
+
+  <h2>8. Changes and availability</h2>
+  <p>We may change the site or these terms at any time. The date at the top shows when the terms were last reviewed. We do not guarantee that the site will always be available.</p>
+
+  <h2>9. Law</h2>
+  <p>{legal.governingLawNote}</p>
+
+  <h2>10. Contact</h2>
+  <p><a href={`mailto:${site.email}`}>{site.email}</a>. Corrections and removals: <a href="/corrections">Corrections and removal</a>.</p>
+</Doc>

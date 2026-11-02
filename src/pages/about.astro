@@ -1,0 +1,28 @@
+---
+import Doc from '../layouts/Doc.astro';
+import { site, publisher, disclosure } from '../../site.config.mjs';
+import { publishedCompanies } from '../lib/feed.mjs';
+const n = publishedCompanies().length;
+const a = site.address;
+---
+<Doc title="About Southbound" path="/about" entry="About" published={site.firstPublished} reviewed={site.firstPublished}
+  description={site.positioning}>
+  <h2>What this site is</h2>
+  <p>{site.name} is a small, independent reference site about choosing an Antarctic expedition. It covers where expeditions go, when, from which ports, on what size of ship, and which verified companies run or sell them. The name comes from the one thing every Antarctic trip has in common: it starts by heading south.</p>
+  <p>It is written as a reference, not as advertising. Pages state facts with their sources, show the date they were published and last reviewed, and leave out anything we cannot source.</p>
+
+  <h2>Who publishes it</h2>
+  <p>{site.name} is published by <a href={publisher.url}>{publisher.name}</a>, a travel directory. It sits outside the {publisher.name} platform and links into it. {site.editorLine}</p>
+  <p>{disclosure.founderNote} Read the full <a href="/disclosure">publisher disclosure</a>.</p>
+
+  <h2>Where the company information comes from</h2>
+  <p>Every company fact on this site comes from the {publisher.name} directory export. We do not edit company facts by hand here. {disclosure.verifiedOnly} The site currently lists {n} {n === 1 ? 'company' : 'companies'}, a number computed from the feed when the site was built.</p>
+  <p>How the ranked lists are ordered is explained in <a href="/how-we-rank">How we rank</a>.</p>
+
+  <h2>What we do not publish</h2>
+  <p>{disclosure.noInventedFacts} We do not publish reviews, testimonials, star ratings, phone numbers or social media links.</p>
+
+  <h2>Contact</h2>
+  <p>Email <a href={`mailto:${site.email}`}>{site.email}</a>. For a factual error or a removal request, use <a href="/corrections">Corrections and removal</a>.</p>
+  <p class="mono">{a.organisation}, {a.building}, {a.street}, {a.postalCode} {a.locality}, {a.country}{a.placeholder && ' (placeholder address, to be confirmed)'}</p>
+</Doc>

@@ -1,0 +1,29 @@
+---
+// Signature feature 2: departure ports and routes compared.
+import routes from '../../content/antarctica/data/routes.json';
+import { placeCoord } from '../lib/format.mjs';
+const srcIndex = Object.fromEntries(routes.sources.map((s, i) => [s.id, i + 1]));
+const cite = (ids: string[]) => ids.map((id) => `[${srcIndex[id]}]`).join('');
+---
+<figure class="season" aria-labelledby="routes-cap">
+  <div class="table-wrap">
+    <table>
+      <caption id="routes-cap">{routes.caption}</caption>
+      <thead>
+        <tr><th scope="col">Measure</th>{routes.routes.map((r) => <th scope="col">{r.name}<br /><span class="coord">{placeCoord(r.place).coord}</span></th>)}</tr>
+      </thead>
+      <tbody>
+        {routes.rows.map((row) => (
+          <tr>
+            <th scope="row">{row.label}</th>
+            {routes.routes.map((r) => {
+              const c = r.values[row.key];
+              return <td>{c ? <>{c.text}{c.sources?.length ? <sup> <a href={`#src-${srcIndex[c.sources[0]]}`}>{cite(c.sources)}</a></sup> : null}</> : 'No sourced figure'}</td>;
+            })}
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <p class="season-legend">{routes.legend}</p>
+</figure>

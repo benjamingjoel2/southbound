@@ -1,0 +1,56 @@
+---
+import { render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import LogHeader from '../../components/LogHeader.astro';
+import Sources from '../../components/Sources.astro';
+import PlaceList from '../../components/PlaceList.astro';
+import { guidePages } from '../../lib/content';
+import { articleNode } from '../../lib/schema.mjs';
+import { isoDate, placeCoord } from '../../lib/format.mjs';
+
+export async function getStaticPaths() {
+  const pages = await guidePages();
+  return pages.map((entry) => ({ params: { slug: entry.id }, props: { entry, all: pages } }));
+}
+const { entry, all } = Astro.props;
+const { Content } = await render(entry);
+const d = entry.data;
+const path = `/guide/${entry.id}`;
+const published = isoDate(d.published);
+const modified = isoDate(d.reviewed);
+const firstPlace = d.places[0] ? placeCoord(d.places[0]).coord : undefined;
+const idx = all.findIndex((e) => e.id === entry.id);
+const next = all[idx + 1];
+const prev = all[idx - 1];
+---
+<Base
+  title={d.title}
+  description={d.description}
+  path={path}
+  crumbs={[{ name: 'Guide', href: '/guide' }, { name: d.title, href: path }]}
+  schema={[articleNode({ path, title: d.title, description: d.description, published, modified, sources: d.sources })]}
+  ogType="article"
+  published={published}
+  modified={modified}
+>
+  <div class="page">
+    <div class="margin">
+      <LogHeader entry={`Guide · ${String(idx + 1).padStart(2, '0')}`} published={d.published} reviewed={d.reviewed} position={firstPlace} sourceCount={d.sources.length} />
+    </div>
+    <article class="body prose">
+      <h1>{d.title}</h1>
+      <p class="lede">{d.description}</p>
+      <Content />
+      {d.places.length > 0 && <PlaceList keys={d.places} />}
+      <Sources sources={d.sources} />
+      <nav class="sources" aria-label="More guide pages">
+        <h2>Continue the guide</h2>
+        <p>
+          {prev && <a href={`/guide/${prev.id}`}>Previous: {prev.data.title}</a>}
+          {prev && next && <br />}
+          {next && <a href={`/guide/${next.id}`}>Next: {next.data.title}</a>}
+        </p>
+      </nav>
+    </article>
+  </div>
+</Base>

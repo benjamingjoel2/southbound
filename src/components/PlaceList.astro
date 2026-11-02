@@ -1,0 +1,24 @@
+---
+import { placeCoord } from '../lib/format.mjs';
+interface Props { keys: string[]; title?: string }
+const { keys, title = 'Places on this page' } = Astro.props;
+const items = keys.map(placeCoord);
+---
+<section aria-labelledby="places-h">
+  <h2 id="places-h">{title}</h2>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th scope="col">Place</th><th scope="col">Position</th><th scope="col">Note</th></tr></thead>
+      <tbody>
+        {items.map((p) => (
+          <tr>
+            <th scope="row">{p.name}</th>
+            <td class="num"><a href={p.source} rel="noopener">{p.coord}</a>{p.approx && ' (approx.)'}</td>
+            <td>{p.note ?? ''}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <p class="season-legend">Positions © OpenStreetMap contributors (ODbL). Approximate positions are reference points for large areas.</p>
+</section>

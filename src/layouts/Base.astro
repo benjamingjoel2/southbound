@@ -1,0 +1,110 @@
+---
+import '../styles/global.css';
+import Analytics from '@vercel/analytics/astro';
+import { site, publisher, nav, footerNav, legal } from '../../site.config.mjs';
+import { abs, graph, publisherNode, websiteNode, webPageNode, breadcrumbNode } from '../lib/schema.mjs';
+import { formatCoord } from '../lib/format.mjs';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+
+interface Crumb { name: string; href: string }
+interface Props {
+  title: string;
+  description: string;
+  path: string;
+  crumbs?: Crumb[];
+  schema?: object[];
+  pageType?: string;
+  ogType?: 'website' | 'article';
+  published?: string;
+  modified?: string;
+  mainEntity?: string;
+  noindex?: boolean;
+}
+const { title, description, path, crumbs = [], schema = [], pageType = 'WebPage', ogType = 'website', published, modified, mainEntity, noindex = false } = Astro.props;
+const isHome = path === '/';
+const fullTitle = isHome ? `${site.name}: Antarctic expedition reference` : `${title} | ${site.name}`;
+const canonical = abs(path);
+const allCrumbs = [{ name: 'Home', href: '/' }, ...crumbs];
+const ld = graph(publisherNode(), websiteNode(), webPageNode({ path, title, description, type: pageType, mainEntity }), breadcrumbNode(path, allCrumbs), ...schema);
+const current = '/' + (path.split('/')[1] ?? '');
+const position = formatCoord(site.geo.lat, site.geo.lon);
+const a = site.address;
+---
+<!doctype html>
+<html lang={site.language}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    {noindex ? <meta name="robots" content="noindex" /> : <link rel="canonical" href={canonical} />}
+    <link rel="preload" href="/fonts/newsreader-latin-500-normal.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/ibm-plex-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <link rel="alternate" type="text/plain" href="/llms.txt" title="llms.txt" />
+    <meta name="theme-color" content="#0b2239" />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:locale" content={site.locale} />
+    <meta property="og:image" content={abs('/og.png')} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Southbound: the reference for choosing an Antarctic expedition" />
+    {published && <meta property="article:published_time" content={published} />}
+    {modified && <meta property="article:modified_time" content={modified} />}
+    <meta name="twitter:card" content="summary_large_image" />
+    <style set:html={`:root{--signal:${site.accent}}`}></style>
+    <script type="application/ld+json" set:html={JSON.stringify(ld)} />
+  </head>
+  <body>
+    <a class="skip" href="#content">Skip to content</a>
+    <div class="strip" aria-label="Publication details">
+      <div class="wrap">
+        <span>Reference log · Antarctica</span>
+        <span class="coord">{position}</span>
+        <span>{publisher.footerLine.replace(/\.$/, '')} · <a href={publisher.url}>tourground.com</a></span>
+      </div>
+    </div>
+    <header class="masthead">
+      <div class="wrap">
+        <a class="wordmark" href="/">{site.name}<span>Antarctic expedition reference</span></a>
+        <nav class="nav" aria-label="Main">
+          <ul>
+            {nav.map((n) => <li><a href={n.href} aria-current={current === n.href ? 'page' : undefined}>{n.label}</a></li>)}
+          </ul>
+        </nav>
+      </div>
+    </header>
+    <main id="content">
+      <div class="wrap">
+        {!isHome && <Breadcrumbs crumbs={allCrumbs} />}
+        <slot />
+      </div>
+    </main>
+    <footer class="footer">
+      <div class="wrap">
+        <div>
+          <p class="published"><a href={publisher.url}>{publisher.footerLine}</a></p>
+          <p class="small">{site.name} is an independent reference site published by {publisher.name}. {site.editorLine}</p>
+          <p class="small">Contact: <a href={`mailto:${site.email}`}>{site.email}</a></p>
+          <address>
+            {a.organisation}<br />{a.building}, {a.street}<br />{a.postalCode} {a.locality}, {a.country}
+            {a.placeholder && <><br />(placeholder address, to be confirmed)</>}
+          </address>
+        </div>
+        <nav aria-label="Site information">
+          <ul>
+            {footerNav.map((n) => <li><a href={n.href}>{n.label}</a></li>)}
+            <li><a href="/llms.txt">llms.txt</a></li>
+          </ul>
+          <p class="small">{legal.signoff.status !== 'signed-off' && legal.signoff.note}</p>
+        </nav>
+      </div>
+    </footer>
+    <Analytics />
+  </body>
+</html>

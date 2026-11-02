@@ -1,0 +1,28 @@
+---
+import { labels } from '../../site.config.mjs';
+import { companyLink, countryName, rankOf } from '../lib/feed.mjs';
+import { isoDate } from '../lib/format.mjs';
+interface Props { c: any; position?: number; showFeedRank?: boolean }
+const { c, position, showFeedRank = true } = Astro.props;
+const link = companyLink(c);
+const feedRank = rankOf(c);
+---
+<li>
+  <div class="no" aria-hidden={position ? undefined : 'true'}>
+    {position ? <>{position}<small>{showFeedRank && feedRank ? `feed rank ${feedRank}` : ''}</small></> : <small>unranked</small>}
+  </div>
+  <div>
+    <h3><a href={`/operators/${c.id}`}>{c.name}</a></h3>
+    <p class="meta-line">
+      <span>{labels.kinds[c.kind]}</span>
+      <span>Based in {countryName(c.country_base)}</span>
+      <span>Checked <time datetime={isoDate(c.last_checked)}>{isoDate(c.last_checked)}</time></span>
+    </p>
+    <p>
+      {c.founder_owned ? <span class="tag founder">{labels.founderOwned}</span> : <span class="tag">{labels.tiers[c.tier]}</span>}
+      {c.is_example && <> <span class="tag example">{labels.example}</span></>}
+    </p>
+    <p>{c.summary}</p>
+    <p class="meta-line"><span><a href={link.href} rel={link.rel}>{link.label}</a>{link.sponsored && ' (sponsored)'}</span></p>
+  </div>
+</li>

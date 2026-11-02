@@ -1,0 +1,30 @@
+---
+import Base from '../layouts/Base.astro';
+import LogHeader from '../components/LogHeader.astro';
+import Sources from '../components/Sources.astro';
+import SeasonChart from '../components/SeasonChart.astro';
+import season from '../../content/antarctica/data/season.json';
+import { articleNode } from '../lib/schema.mjs';
+import { placeCoord } from '../lib/format.mjs';
+const path = '/season';
+const title = 'Antarctic season chart: November to March';
+---
+<Base title={title} description={season.description} path={path} crumbs={[{ name: 'Season chart', href: path }]}
+  schema={[articleNode({ path, title, description: season.description, published: season.published, modified: season.reviewed, sources: season.sources })]}
+  ogType="article" published={season.published} modified={season.reviewed}>
+  <div class="page wide">
+    <div class="margin">
+      <LogHeader entry="Reference table · 01" published={season.published} reviewed={season.reviewed} position={placeCoord('antarctic-peninsula').coord} sourceCount={season.sources.length} />
+    </div>
+    <article class="body">
+      <h1>{title}</h1>
+      <p class="lede">{season.description}</p>
+      <SeasonChart />
+      <div class="prose">
+        {season.notes.map((n) => <><h2>{n.heading}</h2><p set:html={n.html} /></>)}
+        <p>For the narrative version, read <a href="/guide/season">the season month by month</a>. For penguins specifically: <a href="/questions/november-or-january-for-penguins">is November or January better for penguins?</a></p>
+      </div>
+      <Sources sources={season.sources} />
+    </article>
+  </div>
+</Base>

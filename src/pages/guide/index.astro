@@ -1,0 +1,38 @@
+---
+import Base from '../../layouts/Base.astro';
+import LogHeader from '../../components/LogHeader.astro';
+import Sources from '../../components/Sources.astro';
+import { guidePages } from '../../lib/content';
+import { destinationNode } from '../../lib/schema.mjs';
+import { formatCoord, isoDate } from '../../lib/format.mjs';
+import { site } from '../../../site.config.mjs';
+
+const pages = await guidePages();
+const latest = pages.reduce((m, e) => (e.data.reviewed > m ? e.data.reviewed : m), pages[0]?.data.reviewed ?? new Date());
+const earliest = pages.reduce((m, e) => (e.data.published < m ? e.data.published : m), pages[0]?.data.published ?? new Date());
+const description = 'A reference guide to Antarctica as a travel destination: regions, the season month by month, departure ports, the Drake Passage, ship sizes, the Antarctic Circle and packing.';
+---
+<Base title="Antarctica destination guide" description={description} path="/guide" crumbs={[{ name: 'Guide', href: '/guide' }]} schema={[destinationNode()]}>
+  <div class="page">
+    <div class="margin">
+      <LogHeader entry="Guide · index" published={earliest} reviewed={latest} position={formatCoord(site.geo.lat, site.geo.lon)} />
+    </div>
+    <div class="body">
+      <h1>Antarctica destination guide</h1>
+      <p class="lede">Antarctica is not a country. It is a continent governed under the Antarctic Treaty, reached by ship or by plane from the southern tip of South America and, less often, from New Zealand and Australia.</p>
+      <p>Each guide page shows when it was published, when it was last reviewed, and the sources behind it. The two reference tables, the <a href="/season">season chart</a> and the <a href="/compare">port and route comparison</a>, sit on their own pages.</p>
+      {pages.length === 0 ? <p class="empty">No guide pages have been reviewed for publication yet.</p> : (
+        <ol class="index">
+          {pages.map((e, i) => (
+            <li><a href={`/guide/${e.id}`}>
+              <span class="t">{e.data.title}</span>
+              <span class="c">{String(i + 1).padStart(2, '0')} · reviewed {isoDate(e.data.reviewed)}</span>
+              <span class="d">{e.data.description}</span>
+            </a></li>
+          ))}
+        </ol>
+      )}
+      <Sources sources={[{ url: 'https://www.ats.aq/e/antarctictreaty.html', label: 'Secretariat of the Antarctic Treaty: The Antarctic Treaty' }]} />
+    </div>
+  </div>
+</Base>

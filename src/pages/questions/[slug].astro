@@ -1,0 +1,51 @@
+---
+import { render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import LogHeader from '../../components/LogHeader.astro';
+import Sources from '../../components/Sources.astro';
+import { questionPages } from '../../lib/content';
+import { articleNode, faqNode } from '../../lib/schema.mjs';
+import { isoDate } from '../../lib/format.mjs';
+
+export async function getStaticPaths() {
+  const pages = await questionPages();
+  return pages.map((entry) => ({ params: { slug: entry.id }, props: { entry, all: pages } }));
+}
+const { entry, all } = Astro.props;
+const { Content } = await render(entry);
+const d = entry.data;
+const path = `/questions/${entry.id}`;
+const published = isoDate(d.published);
+const modified = isoDate(d.reviewed);
+const related = d.related.map((r) => all.find((e) => e.id === r)).filter(Boolean);
+const idx = all.findIndex((e) => e.id === entry.id);
+---
+<Base
+  title={d.title}
+  description={d.answer}
+  path={path}
+  crumbs={[{ name: 'Questions', href: '/questions' }, { name: d.title, href: path }]}
+  schema={[faqNode({ path, question: d.title, answer: d.answer }), articleNode({ path, title: d.title, description: d.answer, published, modified, sources: d.sources })]}
+  ogType="article"
+  published={published}
+  modified={modified}
+>
+  <div class="page">
+    <div class="margin">
+      <LogHeader entry={`Question · ${String(idx + 1).padStart(2, '0')}`} published={d.published} reviewed={d.reviewed} sourceCount={d.sources.length} />
+    </div>
+    <article class="body prose">
+      <h1>{d.title}</h1>
+      <div class="answer"><span class="label">Short answer</span><p>{d.answer}</p></div>
+      <h2>In detail</h2>
+      <Content />
+      <Sources sources={d.sources} />
+      {related.length > 0 && (
+        <nav class="sources" aria-label="Related questions">
+          <h2>Related questions</h2>
+          <ul>{related.map((r) => <li><a href={`/questions/${r!.id}`}>{r!.data.title}</a></li>)}</ul>
+        </nav>
+      )}
+    </article>
+  </div>
+</Base>

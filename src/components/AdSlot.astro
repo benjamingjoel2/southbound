@@ -1,0 +1,16 @@
+---
+// Paid placement is not built yet. This is the reserved, clearly separated slot.
+// It renders nothing visible until `items` is supplied; the wrapper and label
+// are fixed so a future paid item can never appear inside the editorial list.
+import { labels, disclosure } from '../../site.config.mjs';
+interface Props { items?: { name: string; href: string; text: string }[] }
+const { items = [] } = Astro.props;
+---
+{items.length === 0 && <div class="ad-slot-empty" data-ad-slot="top" hidden></div>}
+{items.length > 0 && (
+  <aside class="ad-slot" aria-label={labels.advertisement}>
+    <span class="ad-label">{labels.advertisement}</span>
+    {items.map((it) => <p><a href={it.href} rel="sponsored nofollow">{it.name}</a>: {it.text}</p>)}
+    <p>{disclosure.adSlotNote}</p>
+  </aside>
+)}

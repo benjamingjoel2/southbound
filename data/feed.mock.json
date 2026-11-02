@@ -1,0 +1,81 @@
+{
+  "_comment": "MOCK FEED. Stand-in for the Tourground directory export until it exists. Do not hand-edit company facts in production; replace this with data/feed.json from the export (npm run feed:refresh). Records with is_example: true are fake and are excluded from builds unless INCLUDE_EXAMPLES=1.",
+  "generated_at": "2026-11-02T00:00:00Z",
+  "destinations": [
+    {
+      "slug": "antarctica",
+      "name": "Antarctica",
+      "type": "region",
+      "content_dir": "content/antarctica"
+    }
+  ],
+  "companies": [
+    {
+      "id": "seventh-continent",
+      "name": "Seventh Continent",
+      "kind": "agency",
+      "country_base": "AR",
+      "delivers_in": ["AQ", "GS", "FK"],
+      "sells_from": [],
+      "niches": ["expedition", "fly-cruise", "photography", "wildlife", "kayaking-camping", "south-georgia-falklands"],
+      "tier": "founder",
+      "verified": true,
+      "founder_owned": true,
+      "rank": { "AQ": 1 },
+      "summary": "Antarctica-only travel specialist. It does not operate ships; it matches travellers with voyages run by IAATO-member operators, and bookings are made with the operating company under that company's terms.",
+      "website": "https://seventhcontinent.tourground.com",
+      "profile_url": "https://seventhcontinent.tourground.com",
+      "memberships": [],
+      "sources": [
+        { "url": "https://seventhcontinent.tourground.com/about", "label": "Seventh Continent: About" },
+        { "url": "https://seventhcontinent.tourground.com/experiences", "label": "Seventh Continent: Experiences" }
+      ],
+      "last_checked": "2026-11-02",
+      "is_example": false
+    },
+    {
+      "id": "example-operator-one",
+      "name": "Example Operator One",
+      "kind": "dmc",
+      "country_base": "AR",
+      "delivers_in": ["AQ"],
+      "sells_from": ["AR", "US"],
+      "niches": ["expedition", "small-ships", "kayaking-camping"],
+      "tier": "verified",
+      "verified": true,
+      "founder_owned": false,
+      "rank": { "AQ": 2 },
+      "summary": "EXAMPLE RECORD. Not a real company. Used only to test layout and link rules for a standard verified listing.",
+      "website": "https://example.com/example-operator-one",
+      "profile_url": "https://tourground.com/example-operator-one",
+      "memberships": [],
+      "sources": [
+        { "url": "https://example.com/example-operator-one", "label": "Example source (fake)" }
+      ],
+      "last_checked": "2026-11-02",
+      "is_example": true
+    },
+    {
+      "id": "example-operator-two",
+      "name": "Example Operator Two",
+      "kind": "agency",
+      "country_base": "GB",
+      "delivers_in": ["AQ", "GS", "FK"],
+      "sells_from": ["GB"],
+      "niches": ["expedition", "photography", "wildlife", "south-georgia-falklands"],
+      "tier": "platinum",
+      "verified": true,
+      "founder_owned": false,
+      "rank": { "AQ": 3 },
+      "summary": "EXAMPLE RECORD. Not a real company. Used only to test layout and the sponsored-link rule for a Platinum listing.",
+      "website": "https://example.com/example-operator-two",
+      "profile_url": "https://tourground.com/example-operator-two",
+      "memberships": [],
+      "sources": [
+        { "url": "https://example.com/example-operator-two", "label": "Example source (fake)" }
+      ],
+      "last_checked": "2026-11-02",
+      "is_example": true
+    }
+  ]
+}

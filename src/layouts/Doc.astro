@@ -1,0 +1,24 @@
+---
+import Base from './Base.astro';
+import LogHeader from '../components/LogHeader.astro';
+import Sources from '../components/Sources.astro';
+import { articleNode } from '../lib/schema.mjs';
+import { legal } from '../../site.config.mjs';
+interface Props { title: string; description: string; path: string; entry: string; published: string; reviewed: string; sources?: { url: string; label: string }[]; legalPage?: boolean }
+const { title, description, path, entry, published, reviewed, sources = [], legalPage = false } = Astro.props;
+---
+<Base title={title} description={description} path={path} crumbs={[{ name: title, href: path }]}
+  schema={[articleNode({ path, title, description, published, modified: reviewed, sources })]} published={published} modified={reviewed}>
+  <div class="page">
+    <div class="margin">
+      <LogHeader entry={entry} published={published} reviewed={reviewed} />
+    </div>
+    <article class="body prose">
+      <h1>{title}</h1>
+      <p class="lede">{description}</p>
+      {legalPage && legal.signoff.status !== 'signed-off' && <p class="disclosure"><strong>Status:</strong> {legal.signoff.note}</p>}
+      <slot />
+      {sources.length > 0 && <Sources sources={sources} />}
+    </article>
+  </div>
+</Base>

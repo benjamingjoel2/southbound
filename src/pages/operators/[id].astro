@@ -1,0 +1,79 @@
+---
+import Base from '../../layouts/Base.astro';
+import LogHeader from '../../components/LogHeader.astro';
+import Sources from '../../components/Sources.astro';
+import { publishedCompanies, companyLink, countryName, rankedList } from '../../lib/feed.mjs';
+import { niches, nicheLabel } from '../../lib/niches.mjs';
+import { companyNode } from '../../lib/schema.mjs';
+import { isoDate } from '../../lib/format.mjs';
+import { site, publisher, labels, disclosure } from '../../../site.config.mjs';
+
+// One page per published company. A company removed from the feed (or no
+// longer verified) is not returned here, so its page disappears next build.
+export function getStaticPaths() {
+  return publishedCompanies().map((c) => ({ params: { id: c.id }, props: { c } }));
+}
+const { c } = Astro.props;
+const path = `/operators/${c.id}`;
+const link = companyLink(c);
+const appearsIn = niches
+  .map((n) => ({ n, pos: rankedList(n).ranked.findIndex((x) => x.id === c.id) }))
+  .filter((x) => x.pos >= 0);
+const checked = isoDate(c.last_checked);
+const firstListed = c.first_listed ? isoDate(c.first_listed) : site.firstPublished;
+const description = `${c.name}: ${labels.kinds[c.kind].toLowerCase()} based in ${countryName(c.country_base)}. Verification tier, specialties, where it delivers and sources, from the Tourground directory.`;
+const correction = `${publisher.correctionsUrl}${publisher.correctionsUrl.includes('?') ? '&' : '?'}company=${encodeURIComponent(c.id)}`;
+const list = (codes: string[]) => (codes?.length ? codes.map(countryName).join(', ') : 'Not stated in the feed');
+---
+<Base
+  title={`${c.name}: Antarctic operator facts`}
+  description={description}
+  path={path}
+  crumbs={[{ name: 'Operators', href: '/operators' }, { name: c.name, href: path }]}
+  schema={[companyNode(c, path)]}
+  pageType="ProfilePage"
+  mainEntity={`${site.url}${path}#company`}
+>
+  <div class="page">
+    <div class="margin">
+      <LogHeader entry="Company record" published={firstListed} reviewed={checked} sourceCount={c.sources.length} extra={[{ label: 'Last checked', value: checked }]} />
+    </div>
+    <article class="body">
+      <h1>{c.name}</h1>
+      <p>
+        {c.founder_owned ? <span class="tag founder">{labels.founderOwned}</span> : <span class="tag">{labels.tiers[c.tier]}</span>}
+        {c.is_example && <> <span class="tag example">{labels.example}</span></>}
+      </p>
+      <p class="lede">{c.summary}</p>
+
+      <h2>Record</h2>
+      <dl class="facts">
+        <div><dt>What it is</dt><dd>{labels.kinds[c.kind]}</dd></div>
+        <div><dt>Based in</dt><dd>{countryName(c.country_base)} <span class="mono">({c.country_base})</span></dd></div>
+        <div><dt>Delivers in</dt><dd>{list(c.delivers_in)}</dd></div>
+        <div><dt>Sells from</dt><dd>{list(c.sells_from)}</dd></div>
+        <div><dt>Specialties</dt><dd>{c.niches.map((x) => nicheLabel[x] ?? x).join(', ')}</dd></div>
+        <div><dt>Memberships</dt><dd>{c.memberships?.length ? c.memberships.map((m) => (typeof m === 'string' ? m : m.name)).join(', ') : 'None stated in the feed'}</dd></div>
+        <div><dt>Verification</dt><dd>{labels.tiers[c.tier]}{c.founder_owned && <>. {labels.founderOwned}</>}</dd></div>
+        <div><dt>Last checked</dt><dd><time datetime={checked}>{checked}</time></dd></div>
+        <div><dt>Link</dt><dd><a href={link.href} rel={link.rel}>{link.label}</a>{link.sponsored && <> (sponsored link: Platinum listing)</>}</dd></div>
+      </dl>
+
+      <h2>Ranked lists</h2>
+      {appearsIn.length === 0 ? <p>This company does not currently appear in a ranked list on {site.name}.</p> : (
+        <ul>
+          {appearsIn.map(({ n, pos }) => <li><a href={`/rankings/${n.slug}`}>{n.title}</a>: position {pos + 1}</li>)}
+        </ul>
+      )}
+      <p class="disclosure">
+        {c.founder_owned && <>{disclosure.founderNote} </>}
+        {disclosure.rankingNote}
+        {link.sponsored && <> {disclosure.sponsoredLinkNote}</>}
+      </p>
+
+      <p><a href={correction}>{labels.requestCorrection}</a> <span class="mono">(opens the Tourground contact flow)</span></p>
+
+      <Sources sources={c.sources} />
+    </article>
+  </div>
+</Base>

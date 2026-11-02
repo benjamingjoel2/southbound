@@ -1,0 +1,25 @@
+{
+  "_comment": "Coordinates shown next to every place on the site. Points taken from OpenStreetMap (Nominatim lookup, 2026-11-02) unless `approx` is true, in which case the point is a representative chart reference for a large sea area or region and is listed in FACTS-TO-VERIFY.md.",
+  "places": {
+    "ushuaia": { "name": "Ushuaia", "lat": -54.8073, "lon": -68.3084, "source": "https://www.openstreetmap.org/relation/11347693" },
+    "punta-arenas": { "name": "Punta Arenas", "lat": -53.1626, "lon": -70.9078, "source": "https://www.openstreetmap.org/node/181356942" },
+    "king-george-island": { "name": "King George Island", "lat": -62.0761, "lon": -58.6319, "source": "https://www.openstreetmap.org/relation/188921" },
+    "marsh-aerodrome": { "name": "Teniente R. Marsh aerodrome", "lat": -62.1911, "lon": -58.986, "source": "https://www.openstreetmap.org/way/933062050" },
+    "deception-island": { "name": "Deception Island", "lat": -62.957, "lon": -60.5522, "source": "https://www.openstreetmap.org/relation/2986747" },
+    "port-lockroy": { "name": "Port Lockroy", "lat": -64.8253, "lon": -63.4946, "source": "https://www.openstreetmap.org/node/452093463" },
+    "lemaire-channel": { "name": "Lemaire Channel", "lat": -65.0683, "lon": -63.9442, "source": "https://www.openstreetmap.org/way/1537950632" },
+    "stanley": { "name": "Stanley, Falkland Islands", "lat": -51.6931, "lon": -57.8565, "source": "https://www.openstreetmap.org/relation/12764972" },
+    "bluff": { "name": "Bluff, New Zealand", "lat": -46.5988, "lon": 168.3434, "source": "https://www.openstreetmap.org/node/974363520" },
+    "hobart": { "name": "Hobart, Tasmania", "lat": -42.8825, "lon": 147.3281, "source": "https://www.openstreetmap.org/relation/10632745" },
+    "grytviken": { "name": "Grytviken, South Georgia", "lat": -54.2814, "lon": -36.5078, "approx": true, "source": "https://www.openstreetmap.org/search?query=Grytviken" },
+    "snow-hill-island": { "name": "Snow Hill Island", "lat": -64.4667, "lon": -57.2, "approx": true, "source": "https://www.openstreetmap.org/search?query=Snow%20Hill%20Island" },
+    "antarctic-peninsula": { "name": "Antarctic Peninsula", "lat": -64.82, "lon": -63.49, "approx": true, "source": "https://www.openstreetmap.org/node/452093463", "note": "Reference point: Port Lockroy, on the western Peninsula." },
+    "south-shetland-islands": { "name": "South Shetland Islands", "lat": -62.08, "lon": -58.63, "approx": true, "source": "https://www.openstreetmap.org/relation/188921", "note": "Reference point: King George Island, the largest island of the group." },
+    "drake-passage": { "name": "Drake Passage", "lat": -58.0, "lon": -65.0, "approx": true, "source": "https://www.openstreetmap.org/search?query=Drake%20Passage", "note": "Approximate mid-passage reference point." },
+    "weddell-sea": { "name": "Weddell Sea", "lat": -72.0, "lon": -45.0, "approx": true, "source": "https://www.openstreetmap.org/search?query=Weddell%20Sea", "note": "Approximate centre of the sea area." },
+    "ross-sea": { "name": "Ross Sea", "lat": -75.0, "lon": -175.0, "approx": true, "source": "https://www.openstreetmap.org/search?query=Ross%20Sea", "note": "Approximate centre of the sea area." },
+    "antarctic-circle": { "name": "Antarctic Circle", "lat": -66.5636, "lon": -67.0, "approx": true, "source": "https://www.openstreetmap.org/search?query=Antarctic%20Circle", "note": "The Circle is a line of latitude (about 66°34′S; it drifts slightly each year). Longitude shown is where Peninsula voyages typically cross it." },
+    "south-georgia": { "name": "South Georgia", "lat": -54.28, "lon": -36.51, "approx": true, "source": "https://www.openstreetmap.org/search?query=Grytviken", "note": "Reference point: Grytviken." },
+    "falkland-islands": { "name": "Falkland Islands", "lat": -51.69, "lon": -57.86, "approx": true, "source": "https://www.openstreetmap.org/relation/12764972", "note": "Reference point: Stanley." }
+  }
+}

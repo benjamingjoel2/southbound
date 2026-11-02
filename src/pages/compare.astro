@@ -1,0 +1,58 @@
+---
+import Base from '../layouts/Base.astro';
+import LogHeader from '../components/LogHeader.astro';
+import Sources from '../components/Sources.astro';
+import RouteTable from '../components/RouteTable.astro';
+import routes from '../../content/antarctica/data/routes.json';
+import { articleNode } from '../lib/schema.mjs';
+import { publishedCompanies, countryName } from '../lib/feed.mjs';
+import { nicheLabel } from '../lib/niches.mjs';
+import { feedDate, feedSourceLabel } from '../lib/feedmeta.mjs';
+import { site, labels } from '../../site.config.mjs';
+const path = '/compare';
+const title = 'Antarctic departure ports and routes compared';
+const companies = [...publishedCompanies()].sort((a, b) => a.name.localeCompare(b.name));
+const sources = [...routes.sources, { id: 'feed', url: `${site.url}/how-we-rank`, label: feedSourceLabel() }];
+const reviewed = routes.reviewed > feedDate() ? routes.reviewed : feedDate();
+---
+<Base title={title} description={routes.description} path={path} crumbs={[{ name: 'Ports & routes', href: path }]}
+  schema={[articleNode({ path, title, description: routes.description, published: routes.published, modified: reviewed, sources })]}
+  ogType="article" published={routes.published} modified={reviewed}>
+  <div class="page wide">
+    <div class="margin">
+      <LogHeader entry="Reference table · 02" published={routes.published} reviewed={reviewed} sourceCount={sources.length} />
+    </div>
+    <article class="body">
+      <h1>{title}</h1>
+      <p class="lede">{routes.description}</p>
+      <RouteTable />
+      <div class="prose">
+        {routes.notes.map((n) => <><h2>{n.heading}</h2><p set:html={n.html} /></>)}
+      </div>
+
+      <h2 id="operators">Verified operators compared</h2>
+      <p>Facts from the Tourground directory feed only. Alphabetical; for merit order see the <a href="/rankings">ranked lists</a>. {companies.length} {companies.length === 1 ? 'company' : 'companies'} (computed from the feed).</p>
+      {companies.length === 0 ? <p class="empty">No companies are published yet.</p> : (
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th scope="col">Company</th><th scope="col">Type</th><th scope="col">Based in</th><th scope="col">Delivers in</th><th scope="col">Specialties</th><th scope="col">Tier</th><th scope="col">Checked</th></tr></thead>
+            <tbody>
+              {companies.map((c) => (
+                <tr>
+                  <th scope="row"><a href={`/operators/${c.id}`}>{c.name}</a>{c.is_example && <> <span class="tag example">example</span></>}</th>
+                  <td>{c.kind === 'dmc' ? 'DMC' : 'Agency'}</td>
+                  <td>{countryName(c.country_base)}</td>
+                  <td>{c.delivers_in.map(countryName).join(', ')}</td>
+                  <td>{c.niches.map((x) => nicheLabel[x] ?? x).join(', ')}</td>
+                  <td>{c.founder_owned ? labels.founderOwned : labels.tiers[c.tier]}</td>
+                  <td class="num">{c.last_checked}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+      <Sources sources={sources} />
+    </article>
+  </div>
+</Base>

@@ -1,0 +1,34 @@
+---
+import Base from '../../layouts/Base.astro';
+import LogHeader from '../../components/LogHeader.astro';
+import { questionPages } from '../../lib/content';
+import { isoDate } from '../../lib/format.mjs';
+
+const pages = await questionPages();
+const latest = pages.reduce((m, e) => (e.data.reviewed > m ? e.data.reviewed : m), pages[0]?.data.reviewed ?? new Date());
+const earliest = pages.reduce((m, e) => (e.data.published < m ? e.data.published : m), pages[0]?.data.published ?? new Date());
+const description = 'Short, sourced answers to real questions travellers ask before booking an Antarctic expedition.';
+---
+<Base title="Antarctica travel questions" description={description} path="/questions" crumbs={[{ name: 'Questions', href: '/questions' }]}
+  pageType="CollectionPage">
+  <div class="page">
+    <div class="margin">
+      <LogHeader entry="Questions · index" published={earliest} reviewed={latest} />
+    </div>
+    <div class="body">
+      <h1>Antarctica travel questions</h1>
+      <p class="lede">{description} Each page gives the short answer first, then the detail and the sources.</p>
+      {pages.length === 0 ? <p class="empty">No questions have been reviewed for publication yet.</p> : (
+        <ol class="index">
+          {pages.map((e) => (
+            <li><a href={`/questions/${e.id}`}>
+              <span class="t">{e.data.title}</span>
+              <span class="c">reviewed {isoDate(e.data.reviewed)}</span>
+              <span class="d">{e.data.answer}</span>
+            </a></li>
+          ))}
+        </ol>
+      )}
+    </div>
+  </div>
+</Base>

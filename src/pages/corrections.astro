@@ -1,0 +1,15 @@
+---
+import Doc from '../layouts/Doc.astro';
+import { site, publisher, labels } from '../../site.config.mjs';
+---
+<Doc title="Corrections and removal" path="/corrections" entry="Corrections" published={site.firstPublished} reviewed={site.firstPublished}
+  description="How to report a factual error on Southbound, or ask for a company to be corrected or removed.">
+  <h2>Company information</h2>
+  <p>Company facts on {site.name} come from the {publisher.name} directory, so corrections and removals are made there and reach this site on the next build. Every company page has a "{labels.requestCorrection}" link that opens the {publisher.name} contact flow with the company already identified.</p>
+  <p><a href={publisher.correctionsUrl}>{labels.requestCorrection}</a></p>
+  <p>When a company is removed from the directory, or stops being verified, its page on {site.name} is not rebuilt and stops being published.</p>
+  <h2>Guide and question pages</h2>
+  <p>If a guide or question page is wrong or out of date, email <a href={`mailto:${site.email}`}>{site.email}</a> with the page address and, if you can, a source. We review the page against its sources, correct it if needed, and update its "last reviewed" date.</p>
+  <h2>What we will not do</h2>
+  <p>We will not change a company's rank on request or for payment. Rank comes only from the directory feed; see <a href="/how-we-rank">How we rank</a>.</p>
+</Doc>

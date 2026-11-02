@@ -1,0 +1,29 @@
+---
+import Doc from '../layouts/Doc.astro';
+import { site, publisher, labels, disclosure } from '../../site.config.mjs';
+import { niches } from '../lib/niches.mjs';
+import { feedDate, feedSourceLabel } from '../lib/feedmeta.mjs';
+---
+<Doc title="How we rank" path="/how-we-rank" entry="Method" published={site.firstPublished} reviewed={feedDate()}
+  description="Rankings on Southbound come only from the rank field in the Tourground directory feed. They are never paid for and never reordered by hand.">
+  <h2>The rule</h2>
+  <p>{disclosure.rankingNote}</p>
+  <ol>
+    <li><strong>Who can appear.</strong> {disclosure.verifiedOnly}</li>
+    <li><strong>Which list.</strong> A company appears in a specialty list when the feed tags it with that specialty. The list of all operators includes every published company that delivers in Antarctica, South Georgia or the Falkland Islands.</li>
+    <li><strong>Order.</strong> Companies are ordered by their Antarctica rank in the feed (the <code>rank.{site.rankKey}</code> value), lowest number first. If two companies share a rank, feed order decides. Each entry shows its position in that list and its feed rank.</li>
+    <li><strong>No rank, no position.</strong> A company with no Antarctica rank is shown below the list as "verified, not yet ranked", in feed order.</li>
+    <li><strong>Founder-owned brands.</strong> Brands owned by {publisher.name}'s founders are labelled "{labels.founderOwned}" wherever they appear and follow exactly the same rules.</li>
+    <li><strong>Payment.</strong> Payment has no effect on rank. Paid placements, when they exist, are labelled "{labels.advertisement}", shown at the top of a page in a separate box, and never mixed into the list.</li>
+  </ol>
+
+  <h2>Links</h2>
+  <p>Companies on the Platinum tier may link to their own website; those links carry <code>rel="sponsored nofollow"</code> and are marked as sponsored. All other companies link only to their {publisher.name} profile page.</p>
+
+  <h2>Removals</h2>
+  <p>The site is rebuilt from the feed. When a company is removed from the feed, or stops being verified, its page and list entries are gone from the next build.</p>
+
+  <h2>Lists on this site</h2>
+  <ul>{niches.map((n) => <li><a href={`/rankings/${n.slug}`}>{n.title}</a></li>)}</ul>
+  <p class="mono">Current data: {feedSourceLabel()}.</p>
+</Doc>
