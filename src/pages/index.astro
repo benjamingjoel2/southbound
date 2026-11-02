@@ -1,8 +1,10 @@
 ---
 import Base from '../layouts/Base.astro';
-import LogHeader from '../components/LogHeader.astro';
 import Sources from '../components/Sources.astro';
+import Photo from '../components/Photo.astro';
 import glance from '../../content/antarctica/data/glance.json';
+import season from '../../content/antarctica/data/season.json';
+import routes from '../../content/antarctica/data/routes.json';
 import { guidePages, questionPages } from '../lib/content';
 import { niches } from '../lib/niches.mjs';
 import { publishedCompanies, rankedList } from '../lib/feed.mjs';
@@ -18,22 +20,38 @@ const srcIndex = Object.fromEntries(glance.sources.map((s, i) => [s.id, i + 1]))
 const allDates = [...guide, ...qs].map((e) => isoDate(e.data.reviewed)).concat(glance.reviewed, feedDate());
 const reviewed = allDates.sort().at(-1);
 const description = site.positioning;
-const recent = [...guide.map((e) => ({ e, href: `/guide/${e.id}` })), ...qs.map((e) => ({ e, href: `/questions/${e.id}` }))]
-  .sort((a, b) => +b.e.data.reviewed - +a.e.data.reviewed || a.e.data.order - b.e.data.order)
-  .slice(0, 6);
----
-<Base title="Home" description={description} path="/"
-  schema={[destinationNode(), articleNode({ path: '/', title: `${site.name}: Antarctic expedition reference`, description, published: glance.published, modified: reviewed, sources: glance.sources })]}>
-  <div class="page">
-    <div class="margin">
-      <LogHeader entry="Log · front page" published={glance.published} reviewed={reviewed} position={formatCoord(site.geo.lat, site.geo.lon)} sourceCount={glance.sources.length} />
-    </div>
-    <div class="body">
-      <h1>The reference for choosing an Antarctic expedition</h1>
-      <p class="lede">Routes, seasons, ships, departure ports and the verified expedition operators who run them, with a date and a source on every fact.</p>
-      <p>{site.name} is an independent reference published by <a href={publisher.url}>{publisher.name}</a>. {disclosure.verifiedOnly} Rankings come from the directory feed and are never paid for: see <a href="/how-we-rank">how we rank</a>.</p>
 
-      <h2>Antarctica at a glance</h2>
+// Season band: daylight and Adélie stage per month, straight from the sourced chart data.
+const daylight = season.rows.find((r) => r.key === 'daylight-lockroy')!;
+const adelie = season.rows.find((r) => r.key === 'adelie')!;
+const months = season.months.map((m, i) => ({ m, day: daylight.cells[i], adelie: adelie.cells[i].text }));
+
+const withImg = guide.filter((e) => e.data.image);
+const lead = withImg[0] ?? guide[0];
+const rest = guide.filter((e) => e.id !== lead?.id);
+const routeLen = routes.routes.map((r) => ({ name: r.name, length: r.values.length?.text ?? '', time: r.values.time?.text ?? '' }));
+---
+<Base title="Home" description={description} path="/" bleed
+  schema={[destinationNode(), articleNode({ path: '/', title: `${site.name}: Antarctic expedition reference`, description, published: glance.published, modified: reviewed, sources: glance.sources })]}>
+
+  <section class="hero" aria-labelledby="hero-h">
+    <div class="hero-text">
+      <p class="kicker">Reference log · Antarctica · <span class="coord">{formatCoord(site.geo.lat, site.geo.lon)}</span></p>
+      <h1 id="hero-h">Choosing an Antarctic expedition, by the facts</h1>
+      <p class="lede">Routes, seasons, ships, departure ports and the verified expedition operators who run them. Every fact dated and sourced.</p>
+      <p class="hero-meta">
+        <span>Published <time datetime={glance.published}>{glance.published}</time></span>
+        <span>Reviewed <time datetime={reviewed}>{reviewed}</time></span>
+        <span>{guide.length + qs.length} sourced pages</span>
+      </p>
+      <p class="hero-cta"><a class="textlink" href="/guide">Start with the guide</a></p>
+    </div>
+    <Photo name="lemaire" eager sizes="(min-width: 64rem) 48vw, 100vw" widths={[480, 720, 960, 1280, 1600]} />
+  </section>
+
+  <div class="wrap">
+    <div class="rule-head"><h2>Antarctica at a glance</h2><span>{glance.items.length} sourced facts</span></div>
+    <div class="feature">
       <dl class="facts position">
         {glance.items.map((it) => (
           <div>
@@ -46,28 +64,93 @@ const recent = [...guide.map((e) => ({ e, href: `/guide/${e.id}` })), ...qs.map(
           </div>
         ))}
       </dl>
-
-      <h2>Sections</h2>
-      <ol class="index">
-        <li><a href="/guide"><span class="t">Destination guide</span><span class="c">{guide.length} pages</span><span class="d">Regions, the season, departure ports, the Drake Passage, ship sizes, the Antarctic Circle, packing.</span></a></li>
-        <li><a href="/season"><span class="t">Season chart, November to March</span><span class="c">reference table</span><span class="d">Sea ice, daylight, penguin breeding stages, whale sightings and temperatures by month.</span></a></li>
-        <li><a href="/compare"><span class="t">Departure ports and routes compared</span><span class="c">reference table</span><span class="d">Ushuaia, Punta Arenas and fly-cruise: crossing time, days on the ice, typical trip length.</span></a></li>
-        <li><a href="/rankings"><span class="t">Verified operators, ranked by specialty</span><span class="c">{companies.length} {companies.length === 1 ? 'company' : 'companies'}</span><span class="d">{niches.map((n) => n.short).join(', ')}.</span></a></li>
-        <li><a href="/questions"><span class="t">Questions travellers ask</span><span class="c">{qs.length} answered</span><span class="d">Short answer first, then the detail and the sources.</span></a></li>
-      </ol>
-
-      <h2>Latest log entries</h2>
-      <ul class="index">
-        {recent.map(({ e, href }) => (
-          <li><a href={href}><span class="t">{e.data.title}</span><span class="c">reviewed {isoDate(e.data.reviewed)}</span></a></li>
-        ))}
-      </ul>
-
-      <h2>Ranked lists</h2>
-      <ul>
-        {niches.map((n) => <li><a href={`/rankings/${n.slug}`}>{n.title}</a> <span class="mono">({rankedList(n).ranked.length})</span></li>)}
-      </ul>
-      <Sources sources={glance.sources} />
+      <div>
+        <p class="kicker">About this site</p>
+        <p class="lede">{site.name} is an independent reference published by <a href={publisher.url}>{publisher.name}</a>. It is written to be cited, not to sell.</p>
+        <p>{disclosure.verifiedOnly} Rankings come only from the directory feed and are never paid for. <a href="/how-we-rank">How we rank</a>.</p>
+      </div>
     </div>
+  </div>
+
+  <section class="band" aria-labelledby="season-h">
+    <div class="wrap">
+      <div class="rule-head"><span>Reference table 01</span><span>November to March</span></div>
+      <h2 id="season-h">What changes, month by month</h2>
+      <p>Daylight at Port Lockroy and the Adélie penguin calendar. The full chart adds sea ice, chinstraps, gentoos, humpback whales and temperatures, all sourced.</p>
+      <dl class="months">
+        {months.map((x) => (
+          <div>
+            <dt>{x.m}</dt>
+            <dd>
+              <span class="big">{x.day.text}</span>
+              <span class="bar" aria-hidden="true"><i style={`width:${Math.round((x.day.value / 24) * 100)}%`}></i></span>
+              <span class="sm">Adélie: {x.adelie}</span>
+            </dd>
+          </div>
+        ))}
+      </dl>
+      <p class="hero-cta"><a class="textlink" href="/season">Open the season chart</a></p>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <div class="rule-head"><h2>The destination guide</h2><span>{guide.length} pages</span></div>
+    {lead && (
+      <div class="stories">
+        <a class="story lead" href={`/guide/${lead.id}`}>
+          {lead.data.image && <Photo name={lead.data.image} caption={false} aspect="4 / 3" sizes="(min-width: 64rem) 52vw, 100vw" widths={[480, 720, 960, 1200]} />}
+          <p class="meta"><span>Guide 01</span><span>Reviewed {isoDate(lead.data.reviewed)}</span></p>
+          <h3>{lead.data.title}</h3>
+          <p>{lead.data.description}</p>
+        </a>
+        <ol class="story-list">
+          {rest.map((e, i) => (
+            <li><a href={`/guide/${e.id}`} class:list={[!e.data.image && 'noimg']}>
+              <p class="meta"><span>Guide {String(guide.indexOf(e) + 1).padStart(2, '0')}</span></p>
+              <h3>{e.data.title}</h3>
+              {e.data.image && <Photo name={e.data.image} caption={false} aspect="1 / 1" sizes="104px" widths={[120, 220]} />}
+            </a></li>
+          ))}
+        </ol>
+      </div>
+    )}
+
+    <div class="rule-head"><span>Reference table 02</span><span>Ports and routes</span></div>
+    <div class="feature">
+      <Photo name="drake-iceberg" class="plain" sizes="(min-width: 64rem) 45vw, 100vw" widths={[480, 720, 960, 1200]} />
+      <div>
+        <h2>Sail the Drake, fly over it, or go the long way round</h2>
+        <ol class="story-list">
+          {routeLen.map((r) => (
+            <li><a href="/compare" class="noimg">
+              <h3>{r.name}</h3>
+              <p class="meta"><span>{r.length}</span></p>
+            </a></li>
+          ))}
+        </ol>
+        <p class="hero-cta"><a class="textlink" href="/compare">Compare ports and routes</a></p>
+      </div>
+    </div>
+
+    <div class="rule-head"><h2>Questions travellers ask</h2><span>Short answer first</span></div>
+    <ol class="story-list">
+      {qs.map((e) => (
+        <li><a href={`/questions/${e.id}`} class:list={[!e.data.image && 'noimg']}>
+          <h3>{e.data.title}</h3>
+          <p class="meta"><span>Reviewed {isoDate(e.data.reviewed)}</span><span>{e.data.sources.length} sources</span></p>
+          {e.data.image && <Photo name={e.data.image} caption={false} aspect="1 / 1" sizes="104px" widths={[120, 220]} />}
+        </a></li>
+      ))}
+    </ol>
+
+    <div class="rule-head"><h2>Verified operators, by specialty</h2><span>{companies.length} {companies.length === 1 ? 'company' : 'companies'} in the feed</span></div>
+    <ol class="index">
+      {niches.map((n) => {
+        const c = rankedList(n).ranked.length;
+        return <li><a href={`/rankings/${n.slug}`}><span class="t">{n.title}</span><span class="c">{c} ranked</span></a></li>;
+      })}
+    </ol>
+
+    <Sources sources={glance.sources} title="Sources for this page" />
   </div>
 </Base>

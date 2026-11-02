@@ -4,6 +4,7 @@ import Base from '../../layouts/Base.astro';
 import LogHeader from '../../components/LogHeader.astro';
 import Sources from '../../components/Sources.astro';
 import PlaceList from '../../components/PlaceList.astro';
+import Photo from '../../components/Photo.astro';
 import { guidePages } from '../../lib/content';
 import { articleNode } from '../../lib/schema.mjs';
 import { isoDate, placeCoord } from '../../lib/format.mjs';
@@ -33,13 +34,19 @@ const prev = all[idx - 1];
   published={published}
   modified={modified}
 >
+  <header class="art-head">
+    {d.image && <Photo name={d.image} eager sizes="(min-width: 64rem) 50vw, 100vw" widths={[480, 720, 960, 1280]} />}
+    <div class="ah-text">
+      <p class="kicker">Guide {String(idx + 1).padStart(2, '0')} · Antarctica</p>
+      <h1>{d.title}</h1>
+      <p class="lede">{d.description}</p>
+    </div>
+  </header>
   <div class="page">
     <div class="margin">
       <LogHeader entry={`Guide · ${String(idx + 1).padStart(2, '0')}`} published={d.published} reviewed={d.reviewed} position={firstPlace} sourceCount={d.sources.length} />
     </div>
     <article class="body prose">
-      <h1>{d.title}</h1>
-      <p class="lede">{d.description}</p>
       <Content />
       {d.places.length > 0 && <PlaceList keys={d.places} />}
       <Sources sources={d.sources} />

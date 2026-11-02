@@ -1,0 +1,52 @@
+{
+  "_comment": "Every photo on the site, with its credit and licence. Only images we own or are licensed to use. No scraped images, no photos of identifiable people. CC BY / CC BY-SA licences require the credit line, which the Photo component prints under each image. Resized derivatives of CC BY-SA photos are shared under the same licence. Unsplash photos may be added with licence 'Unsplash License' (credit kept here, not required on the page).",
+  "images": {
+    "lemaire": {
+      "file": "lemaire-channel.jpg",
+      "alt": "Two red expedition boats crossing dark blue water in front of a wall of glacier ice in the Lemaire Channel",
+      "caption": "Lemaire Channel, Antarctic Peninsula",
+      "place": "lemaire-channel",
+      "credit": "W. Bulach",
+      "licence": "CC BY-SA 4.0",
+      "licenceUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "source": "https://commons.wikimedia.org/wiki/File:00_2296_Antarctica_-_Lemaire_Channel.jpg"
+    },
+    "drake-iceberg": {
+      "file": "drake-iceberg.jpg",
+      "alt": "A large white iceberg with blue caves floating in dark open ocean under a blue sky",
+      "caption": "Iceberg in the Drake Passage",
+      "place": "drake-passage",
+      "credit": "W. Bulach",
+      "licence": "CC BY-SA 4.0",
+      "licenceUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "source": "https://commons.wikimedia.org/wiki/File:00_1470_Iceberg_-_Drake_Passage.jpg"
+    },
+    "sound-iceberg": {
+      "file": "antarctic-sound-iceberg.jpg",
+      "alt": "A long flat-topped tabular iceberg on calm grey water with small pieces of floating ice",
+      "caption": "Tabular iceberg, Antarctic Sound",
+      "credit": "Godot13",
+      "licence": "CC BY-SA 4.0",
+      "licenceUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "source": "https://commons.wikimedia.org/wiki/File:Antarctic_Sound-2016-Iceberg_02.jpg"
+    },
+    "gentoo-colony": {
+      "file": "gentoo-colony.jpg",
+      "alt": "A crowded colony of gentoo penguins standing on bare ground surrounded by low grass and shrubs",
+      "caption": "Gentoo penguin colony",
+      "credit": "dfaulder",
+      "licence": "CC BY 2.0",
+      "licenceUrl": "https://creativecommons.org/licenses/by/2.0/",
+      "source": "https://commons.wikimedia.org/wiki/File:Gentoo_Penguin_colony_(4312381447).jpg"
+    },
+    "king-chicks": {
+      "file": "king-penguin-chicks.jpg",
+      "alt": "Two fluffy brown king penguin chicks in front of a large colony of chicks and adults",
+      "caption": "King penguin chicks in a colony",
+      "credit": "David Stanley",
+      "licence": "CC BY 2.0",
+      "licenceUrl": "https://creativecommons.org/licenses/by/2.0/",
+      "source": "https://www.flickr.com/photos/davidstanleytravel/16078330681/"
+    }
+  }
+}

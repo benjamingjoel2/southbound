@@ -19,8 +19,9 @@ interface Props {
   modified?: string;
   mainEntity?: string;
   noindex?: boolean;
+  bleed?: boolean;
 }
-const { title, description, path, crumbs = [], schema = [], pageType = 'WebPage', ogType = 'website', published, modified, mainEntity, noindex = false } = Astro.props;
+const { title, description, path, crumbs = [], schema = [], pageType = 'WebPage', ogType = 'website', published, modified, mainEntity, noindex = false, bleed = false } = Astro.props;
 const isHome = path === '/';
 const fullTitle = isHome ? `${site.name}: Antarctic expedition reference` : `${title} | ${site.name}`;
 const canonical = abs(path);
@@ -62,47 +63,46 @@ const a = site.address;
   </head>
   <body>
     <a class="skip" href="#content">Skip to content</a>
-    <div class="strip" aria-label="Publication details">
-      <div class="wrap">
-        <span>Reference log · Antarctica</span>
-        <span class="coord">{position}</span>
-        <span>{publisher.footerLine.replace(/\.$/, '')} · <a href={publisher.url}>tourground.com</a></span>
-      </div>
-    </div>
     <header class="masthead">
-      <div class="wrap">
-        <a class="wordmark" href="/">{site.name}<span>Antarctic expedition reference</span></a>
+      <div class="mast-row">
+        <a class="wordmark" href="/">{site.name}</a>
         <nav class="nav" aria-label="Main">
           <ul>
             {nav.map((n) => <li><a href={n.href} aria-current={current === n.href ? 'page' : undefined}>{n.label}</a></li>)}
           </ul>
         </nav>
+        <p class="mast-pos"><span class="coord">{position}</span><span>Published by <a href={publisher.url}>Tourground</a></span></p>
       </div>
     </header>
     <main id="content">
-      <div class="wrap">
-        {!isHome && <Breadcrumbs crumbs={allCrumbs} />}
-        <slot />
-      </div>
+      {bleed ? <slot /> : (
+        <div class="wrap">
+          {!isHome && <Breadcrumbs crumbs={allCrumbs} />}
+          <slot />
+        </div>
+      )}
     </main>
     <footer class="footer">
       <div class="wrap">
-        <div>
-          <p class="published"><a href={publisher.url}>{publisher.footerLine}</a></p>
-          <p class="small">{site.name} is an independent reference site published by {publisher.name}. {site.editorLine}</p>
-          <p class="small">Contact: <a href={`mailto:${site.email}`}>{site.email}</a></p>
+        <p class="foot-mark" aria-hidden="true">{site.name}</p>
+        <div class="foot-grid">
+          <div>
+            <p class="published"><a href={publisher.url}>{publisher.footerLine}</a></p>
+            <p class="small">{site.name} is an independent reference site published by {publisher.name}. {site.editorLine}</p>
+            <p class="small">Contact: <a href={`mailto:${site.email}`}>{site.email}</a></p>
+          </div>
           <address>
             {a.organisation}<br />{a.building}, {a.street}<br />{a.postalCode} {a.locality}, {a.country}
             {a.placeholder && <><br />(placeholder address, to be confirmed)</>}
           </address>
+          <nav aria-label="Site information">
+            <ul>
+              {footerNav.map((n) => <li><a href={n.href}>{n.label}</a></li>)}
+              <li><a href="/llms.txt">llms.txt</a></li>
+            </ul>
+          </nav>
         </div>
-        <nav aria-label="Site information">
-          <ul>
-            {footerNav.map((n) => <li><a href={n.href}>{n.label}</a></li>)}
-            <li><a href="/llms.txt">llms.txt</a></li>
-          </ul>
-          <p class="small">{legal.signoff.status !== 'signed-off' && legal.signoff.note}</p>
-        </nav>
+        <p class="small foot-legal">{legal.signoff.status !== 'signed-off' && legal.signoff.note}</p>
       </div>
     </footer>
     <Analytics />

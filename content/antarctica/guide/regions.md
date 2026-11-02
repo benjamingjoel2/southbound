@@ -25,6 +25,7 @@ sources:
 published: 2026-11-02
 reviewed: 2026-11-02
 status: reviewed
+image: sound-iceberg
 order: 1
 places: [antarctic-peninsula, south-shetland-islands, deception-island, weddell-sea, snow-hill-island, ross-sea, south-georgia, falkland-islands]
 ---

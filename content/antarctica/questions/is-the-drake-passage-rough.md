@@ -16,6 +16,7 @@ sources:
 published: 2026-11-02
 reviewed: 2026-11-02
 status: reviewed
+image: drake-iceberg
 order: 1
 related: [what-does-fly-the-drake-mean, travel-insurance-evacuation-cover]
 ---

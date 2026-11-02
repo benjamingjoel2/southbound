@@ -12,6 +12,7 @@ sources:
 published: 2026-11-02
 reviewed: 2026-11-02
 status: reviewed
+image: king-chicks
 order: 6
 related: [november-or-january-for-penguins]
 ---

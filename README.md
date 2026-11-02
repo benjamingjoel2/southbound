@@ -125,4 +125,4 @@ Vercel project in the team "Benjamin - Sevo", connected to `benjamingjoel2/south
 
 ## Credits
 
-Fonts: Newsreader, IBM Plex Sans and IBM Plex Mono, SIL Open Font License 1.1, self-hosted from Fontsource. Coordinates: © OpenStreetMap contributors (ODbL). The site uses no photographs; the Open Graph image is generated from the site's own type and colours.
+Fonts: Newsreader, IBM Plex Sans and IBM Plex Mono, SIL Open Font License 1.1, self-hosted from Fontsource. Coordinates: © OpenStreetMap contributors (ODbL). Photos: Creative Commons licensed (CC BY 2.0 / CC BY-SA 4.0), credited on the page and listed with source and licence in `content/antarctica/data/images.json`; resized versions of CC BY-SA photos are shared under the same licence. Add photos by dropping a JPEG in `src/assets/photos/`, adding an entry to `images.json`, and setting `image:` in a page's front matter. Unsplash photos are allowed (licence "Unsplash License"; no credit line needed on the page). No photos of identifiable people. The Open Graph image is generated from the site's own type and colours.

@@ -13,6 +13,7 @@ sources:
 published: 2026-11-02
 reviewed: 2026-11-02
 status: reviewed
+image: lemaire
 order: 5
 places: [antarctic-peninsula]
 ---

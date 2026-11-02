@@ -1,0 +1,45 @@
+---
+// Every photo on the site goes through here: right-sized AVIF/WebP with
+// width/height (no layout shift), lazy below the fold, and a credit line
+// taken from content/antarctica/data/images.json (licence + source).
+import { Picture } from 'astro:assets';
+import data from '../../content/antarctica/data/images.json';
+import { placeCoord } from '../lib/format.mjs';
+
+const files = import.meta.glob<{ default: ImageMetadata }>('../assets/photos/*.jpg', { eager: true });
+
+interface Props {
+  name: string;
+  sizes?: string;
+  widths?: number[];
+  eager?: boolean;
+  class?: string;
+  caption?: boolean;
+  aspect?: string;
+}
+const { name, sizes = '(min-width: 64rem) 50vw, 100vw', widths = [400, 640, 960, 1280], eager = false, class: cls, caption = true, aspect } = Astro.props;
+const meta = data.images[name as keyof typeof data.images];
+if (!meta) throw new Error(`Unknown image "${name}"`);
+const src = files[`../assets/photos/${meta.file}`]?.default;
+if (!src) throw new Error(`Missing file src/assets/photos/${meta.file}`);
+const coord = meta.place ? placeCoord(meta.place).coord : null;
+---
+<figure class:list={['photo', cls]} style={aspect ? `--aspect:${aspect}` : undefined}>
+  <Picture
+    src={src}
+    alt={meta.alt}
+    formats={['avif', 'webp']}
+    widths={widths}
+    sizes={sizes}
+    quality={62}
+    loading={eager ? 'eager' : 'lazy'}
+    fetchpriority={eager ? 'high' : 'auto'}
+    decoding={eager ? 'sync' : 'async'}
+  />
+  {caption && (
+    <figcaption>
+      <span>{meta.caption}{coord && <> · <span class="coord">{coord}</span></>}</span>
+      <span class="credit">Photo: <a href={meta.source} rel="noopener">{meta.credit}</a>, <a href={meta.licenceUrl} rel="license noopener">{meta.licence}</a></span>
+    </figcaption>
+  )}
+</figure>

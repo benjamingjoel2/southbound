@@ -16,6 +16,8 @@ const common = {
   reviewed: z.coerce.date(),
   status: z.enum(['draft', 'reviewed']),
   order: z.number().default(100),
+  // Key into content/antarctica/data/images.json
+  image: z.string().optional(),
 };
 
 const guide = defineCollection({

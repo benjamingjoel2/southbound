@@ -15,6 +15,7 @@ sources:
 published: 2026-11-02
 reviewed: 2026-11-02
 status: reviewed
+image: drake-iceberg
 order: 4
 places: [drake-passage, ushuaia, deception-island]
 ---

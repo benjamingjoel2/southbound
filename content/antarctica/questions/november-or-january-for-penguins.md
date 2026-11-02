@@ -12,6 +12,7 @@ sources:
 published: 2026-11-02
 reviewed: 2026-11-02
 status: reviewed
+image: gentoo-colony
 order: 2
 related: [can-you-see-emperor-penguins-on-a-cruise, is-the-drake-passage-rough]
 ---
