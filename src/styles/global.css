@@ -111,6 +111,7 @@ hr { border: 0; border-top: 1px solid var(--glacier-2); margin: 2rem 0; }
   letter-spacing: 0.04em;
 }
 .strip .wrap { display: flex; flex-wrap: wrap; gap: 0.25rem 1.25rem; padding-top: 0.45rem; padding-bottom: 0.45rem; }
+.strip .coord { color: inherit; }
 .strip a { color: var(--ice); text-decoration-color: rgba(247, 250, 252, 0.4); }
 
 .wrap { max-width: 74rem; margin: 0 auto; padding-left: var(--gutter); padding-right: var(--gutter); }
@@ -128,7 +129,8 @@ hr { border: 0; border-top: 1px solid var(--glacier-2); margin: 2rem 0; }
 
 /* ---------- Page grid: margin column + text column ---------- */
 main { display: block; padding-bottom: 4rem; }
-.page { display: grid; grid-template-columns: 1fr; gap: 0 2.5rem; padding-top: 1.75rem; }
+.page { display: grid; grid-template-columns: minmax(0, 1fr); gap: 0 2.5rem; padding-top: 1.75rem; }
+.page > * { min-width: 0; }
 @media (min-width: 64rem) {
   .page { grid-template-columns: 12.5rem minmax(0, var(--measure)) minmax(0, 1fr); }
   .page > .margin { grid-column: 1; }
@@ -140,7 +142,7 @@ main { display: block; padding-bottom: 4rem; }
 .prose { max-width: var(--measure); }
 .prose h2 + p, .prose h3 + p { margin-top: 0.6rem; }
 
-.crumbs { font: 400 0.78rem/1.5 var(--mono); color: var(--ink-muted); }
+.crumbs { font: 400 0.78rem/1.5 var(--mono); color: var(--ink-muted); padding-top: 0.9rem; }
 .crumbs ol { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 0.2rem; }
 .crumbs li + li { margin-top: 0; }
 .crumbs li + li::before { content: '/'; margin: 0 0.4rem 0 0.2rem; color: var(--glacier-2); }
@@ -154,12 +156,16 @@ main { display: block; padding-bottom: 4rem; }
   padding-top: 0.6rem;
   margin: 1rem 0 1.25rem;
 }
-.log dl { margin: 0; display: grid; grid-template-columns: max-content 1fr; gap: 0.1rem 0.75rem; }
+.log dl { margin: 0; }
+.log dl > div { display: flex; gap: 0.75rem; }
+.log dl > div + div { margin-top: 0.15rem; }
+.log dt { min-width: 7.25rem; }
 .log dt { text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-muted); }
 .log dd { margin: 0; }
 @media (max-width: 63.99rem) {
-  .log dl { grid-template-columns: repeat(auto-fit, minmax(9rem, max-content)); grid-auto-flow: row; }
-  .log dl > div { display: block; }
+  .log dl { display: flex; flex-wrap: wrap; gap: 0.35rem 1.5rem; }
+  .log dl > div { display: block; margin: 0; }
+  .log dt { min-width: 0; }
 }
 .log .entry { display: block; color: var(--navy); margin-bottom: 0.35rem; letter-spacing: 0.06em; }
 

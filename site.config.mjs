@@ -38,10 +38,10 @@ export const site = {
   address: {
     placeholder: true,
     organisation: 'Tourground publishing desk (Antarctica)',
-    building: 'WeWork Torre Catalinas Plaza',
-    street: 'Avenida Eduardo Madero 900',
+    building: 'WeWork Catalinas',
+    street: 'Ing. Enrique Butty 275',
     locality: 'Buenos Aires',
-    postalCode: 'C1106ACV',
+    postalCode: 'C1001AFA',
     country: 'Argentina',
     countryCode: 'AR',
   },

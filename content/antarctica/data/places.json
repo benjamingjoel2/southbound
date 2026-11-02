@@ -14,11 +14,11 @@
     "grytviken": { "name": "Grytviken, South Georgia", "lat": -54.2814, "lon": -36.5078, "approx": true, "source": "https://www.openstreetmap.org/search?query=Grytviken" },
     "snow-hill-island": { "name": "Snow Hill Island", "lat": -64.4667, "lon": -57.2, "approx": true, "source": "https://www.openstreetmap.org/search?query=Snow%20Hill%20Island" },
     "antarctic-peninsula": { "name": "Antarctic Peninsula", "lat": -64.82, "lon": -63.49, "approx": true, "source": "https://www.openstreetmap.org/node/452093463", "note": "Reference point: Port Lockroy, on the western Peninsula." },
-    "south-shetland-islands": { "name": "South Shetland Islands", "lat": -62.08, "lon": -58.63, "approx": true, "source": "https://www.openstreetmap.org/relation/188921", "note": "Reference point: King George Island, the largest island of the group." },
+    "south-shetland-islands": { "name": "South Shetland Islands", "lat": -62.08, "lon": -58.63, "approx": true, "source": "https://www.openstreetmap.org/relation/188921", "note": "Reference point: King George Island." },
     "drake-passage": { "name": "Drake Passage", "lat": -58.0, "lon": -65.0, "approx": true, "source": "https://www.openstreetmap.org/search?query=Drake%20Passage", "note": "Approximate mid-passage reference point." },
     "weddell-sea": { "name": "Weddell Sea", "lat": -72.0, "lon": -45.0, "approx": true, "source": "https://www.openstreetmap.org/search?query=Weddell%20Sea", "note": "Approximate centre of the sea area." },
     "ross-sea": { "name": "Ross Sea", "lat": -75.0, "lon": -175.0, "approx": true, "source": "https://www.openstreetmap.org/search?query=Ross%20Sea", "note": "Approximate centre of the sea area." },
-    "antarctic-circle": { "name": "Antarctic Circle", "lat": -66.5636, "lon": -67.0, "approx": true, "source": "https://www.openstreetmap.org/search?query=Antarctic%20Circle", "note": "The Circle is a line of latitude (about 66°34′S; it drifts slightly each year). Longitude shown is where Peninsula voyages typically cross it." },
+    "antarctic-circle": { "name": "Antarctic Circle", "lat": -66.5636, "lon": -67.0, "approx": true, "source": "https://www.openstreetmap.org/search?query=Antarctic%20Circle", "note": "The Circle is a line of latitude (about 66°34′S; it drifts slightly each year). Longitude is only a chart reference point west of the Peninsula." },
     "south-georgia": { "name": "South Georgia", "lat": -54.28, "lon": -36.51, "approx": true, "source": "https://www.openstreetmap.org/search?query=Grytviken", "note": "Reference point: Grytviken." },
     "falkland-islands": { "name": "Falkland Islands", "lat": -51.69, "lon": -57.86, "approx": true, "source": "https://www.openstreetmap.org/relation/12764972", "note": "Reference point: Stanley." }
   }

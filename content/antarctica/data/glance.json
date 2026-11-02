@@ -1,0 +1,54 @@
+{
+  "published": "2026-11-02",
+  "reviewed": "2026-11-02",
+  "status": "reviewed",
+  "items": [
+    {
+      "label": "What it is",
+      "html": "Not a country. A continent governed under the Antarctic Treaty. Most tourist voyages (98% in IAATO's 2025-26 figures) go to the Antarctic Peninsula region.",
+      "sources": ["ats-treaty", "iaato-overview"]
+    },
+    {
+      "label": "Where trips go",
+      "html": "<a href=\"/guide/regions\">Antarctic Peninsula, South Shetland Islands, Weddell Sea, Ross Sea, and the sub-Antarctic: South Georgia and the Falklands</a>.",
+      "places": ["antarctic-peninsula", "south-shetland-islands"],
+      "sources": ["iaato-overview"]
+    },
+    {
+      "label": "Season",
+      "html": "IAATO describes the Peninsula season as October to April. In 2024-25, landings ran from 22 October to 1 April. <a href=\"/season\">Month by month</a>.",
+      "sources": ["iaato-overview", "iaato-sites"]
+    },
+    {
+      "label": "Departure ports",
+      "html": "Ushuaia, Argentina, for most ship voyages; Punta Arenas, Chile, for flights to King George Island. <a href=\"/compare\">Compare routes</a>.",
+      "places": ["ushuaia", "punta-arenas"],
+      "sources": ["iaato-overview", "iaato-air"]
+    },
+    {
+      "label": "The crossing",
+      "html": "The <a href=\"/guide/drake-passage\">Drake Passage</a>, about 850 km wide, lies between South America and the Antarctic Peninsula. Fly-cruises fly over it instead.",
+      "places": ["drake-passage"],
+      "sources": ["bas-drake", "iaato-air"]
+    },
+    {
+      "label": "Landing limits",
+      "html": "IAATO members may land no more than 100 visitors at one site at a time, and ships carrying more than 500 passengers may not land at all. <a href=\"/guide/ship-size\">Why ship size matters</a>.",
+      "sources": ["iaato-bylaws"]
+    },
+    {
+      "label": "Visitors",
+      "html": "113,518 visitors with IAATO operators in the 2025-26 season (as of 10 April 2026), of whom 85,195 landed.",
+      "sources": ["iaato-report"]
+    }
+  ],
+  "sources": [
+    { "id": "ats-treaty", "url": "https://www.ats.aq/e/antarctictreaty.html", "label": "Secretariat of the Antarctic Treaty: The Antarctic Treaty" },
+    { "id": "iaato-overview", "url": "https://iaato.org/system/files?file=2026-05/ATCM48_ip200_rev1_e.pdf", "label": "IAATO, ATCM 48 IP 200 rev.1: overview of Antarctic vessel tourism, the 2025-26 season (2026)" },
+    { "id": "iaato-sites", "url": "https://iaato.org/system/files?file=2025-07%2FATCM47_ip034_e.pdf", "label": "IAATO, ATCM 47 IP 34: 2024-25 season report on Antarctic Peninsula landing sites (2025)" },
+    { "id": "iaato-air", "url": "https://iaato.org/system/files?file=2026-05/ATCM48_ip201_e.pdf", "label": "IAATO, ATCM 48 IP 201: deep field and air operators' overview, 2025-26 (2026)" },
+    { "id": "bas-drake", "url": "https://www.bas.ac.uk/data/our-data/publication/morphological-and-geological-features-of-drake-passage-antarctica-from-a-new-digital-bathymetric-model/", "label": "British Antarctic Survey: morphological and geological features of Drake Passage" },
+    { "id": "iaato-bylaws", "url": "https://iaato.org/about-us/bylaws", "label": "IAATO: Bylaws, Article X, Section C" },
+    { "id": "iaato-report", "url": "https://iaato.org/system/files?file=2026-05/ATCM48_ip194_rev1_e.pdf", "label": "IAATO, ATCM 48 IP 194 rev.1: report of IAATO 2025-26 (2026)" }
+  ]
+}

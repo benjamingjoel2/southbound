@@ -1,0 +1,154 @@
+{
+  "published": "2026-11-02",
+  "reviewed": "2026-11-02",
+  "status": "reviewed",
+  "description": "What changes month by month on the Antarctic Peninsula between November and March: sea ice, daylight, penguin breeding stages, whale sightings and air temperature. Every row is sourced.",
+  "caption": "Antarctic Peninsula and South Shetland Islands, November to March. Numbers in brackets refer to the sources below the chart.",
+  "legend": "Daylight bar: share of 24 hours. Ice squares: relative ice level described by the sources (three = most). Temperatures are 30-season averages (1996–2025) we calculated from British Antarctic Survey station records; individual days vary widely. Where no source gives a month-specific figure, the cell says so.",
+  "months": ["November", "December", "January", "February", "March"],
+  "rows": [
+    {
+      "key": "ice",
+      "label": "Sea ice",
+      "kind": "level",
+      "sources": ["iaato-sites", "nasa-ice"],
+      "cells": [
+        { "text": "Most ice of the season. Early-season ice can block landing sites.", "level": 3 },
+        { "text": "Ice retreating through the southern summer.", "level": 2 },
+        { "text": "Ice retreating through the southern summer.", "level": 2 },
+        { "text": "Continent-wide sea ice reaches its annual minimum (20 February in 2024).", "level": 1 },
+        { "text": "Past the annual minimum.", "level": 1 }
+      ]
+    },
+    {
+      "key": "daylight-lockroy",
+      "label": "Daylight, Port Lockroy (64°50′S)",
+      "kind": "daylight",
+      "sources": ["noaa-solcalc"],
+      "cells": [
+        { "text": "18 h 29 m", "value": 18.48 },
+        { "text": "21 h 38 m", "value": 21.63 },
+        { "text": "19 h 53 m", "value": 19.88 },
+        { "text": "16 h 07 m", "value": 16.12 },
+        { "text": "12 h 52 m", "value": 12.87 }
+      ]
+    },
+    {
+      "key": "daylight-kgi",
+      "label": "Daylight, King George Island (62°11′S)",
+      "kind": "daylight",
+      "sources": ["noaa-solcalc"],
+      "cells": [
+        { "text": "17 h 36 m", "value": 17.6 },
+        { "text": "19 h 45 m", "value": 19.75 },
+        { "text": "18 h 40 m", "value": 18.67 },
+        { "text": "15 h 38 m", "value": 15.63 },
+        { "text": "12 h 46 m", "value": 12.77 }
+      ]
+    },
+    {
+      "key": "adelie",
+      "label": "Adélie penguins",
+      "kind": "text",
+      "sources": ["bas-penguins"],
+      "cells": [
+        { "text": "Eggs laid mid-November." },
+        { "text": "Chicks hatch late December." },
+        { "text": "Chicks join crèches at about three weeks old." },
+        { "text": "Chicks at sea by mid-February." },
+        { "text": "Breeding season over." }
+      ]
+    },
+    {
+      "key": "chinstrap",
+      "label": "Chinstrap penguins",
+      "kind": "text",
+      "sources": ["bas-penguins"],
+      "cells": [
+        { "text": "Eggs laid late November." },
+        { "text": "Incubating." },
+        { "text": "Chicks hatch early January." },
+        { "text": "Chicks growing." },
+        { "text": "Chicks usually fledged about two months after hatching." }
+      ]
+    },
+    {
+      "key": "gentoo",
+      "label": "Gentoo penguins",
+      "kind": "text",
+      "sources": ["bas-penguins"],
+      "cells": [
+        { "text": "Breeding is not well synchronised, so stages overlap between colonies. Chicks join crèches about a month after hatching and take 62–82 days to fledge in the south of the range. Our sources give no month-by-month dates." },
+        { "text": "See November." },
+        { "text": "See November." },
+        { "text": "See November." },
+        { "text": "See November." }
+      ]
+    },
+    {
+      "key": "humpback",
+      "label": "Humpback whales",
+      "kind": "text",
+      "sources": ["johannessen-2022"],
+      "cells": [
+        { "text": "No month-specific estimate in our sources." },
+        { "text": "Numbers rise rapidly through December (lowest estimate in early December)." },
+        { "text": "Numbers stable and high from mid-January." },
+        { "text": "Researchers assume high numbers from mid-December to late April." },
+        { "text": "Researchers assume high numbers from mid-December to late April." }
+      ]
+    },
+    {
+      "key": "temp-faraday",
+      "label": "Mean air temperature, Vernadsky (65°15′S)",
+      "kind": "text",
+      "sources": ["bas-reader-faraday"],
+      "cells": [
+        { "text": "−1.7 °C" },
+        { "text": "0.0 °C" },
+        { "text": "+1.1 °C" },
+        { "text": "+1.1 °C" },
+        { "text": "+0.1 °C" }
+      ]
+    },
+    {
+      "key": "temp-range",
+      "label": "Range of monthly means, four Peninsula stations",
+      "kind": "text",
+      "sources": ["bas-reader-faraday", "bas-reader-rothera", "bas-reader-esperanza", "bas-reader-bellingshausen"],
+      "cells": [
+        { "text": "−2.2 to −0.9 °C" },
+        { "text": "0.0 to +0.8 °C" },
+        { "text": "+1.1 to +1.5 °C" },
+        { "text": "+0.8 to +1.6 °C" },
+        { "text": "−1.5 to +0.7 °C" }
+      ]
+    }
+  ],
+  "notes": [
+    {
+      "heading": "How the season is defined",
+      "html": "IAATO, the tour operators' association, describes the Antarctic Peninsula season as the seven-month austral summer, from October to April. In the 2024-25 season, landings took place over about 162 days, from 22 October to 1 April. The chart covers November to March."
+    },
+    {
+      "heading": "How the daylight figures were calculated",
+      "html": "Sunrise to sunset on the 15th of each month of the 2026-27 season, calculated with the NOAA solar calculator equations (sun's centre at 0.833° below the horizon, which allows for refraction). Twilight adds more usable light on top of these figures."
+    },
+    {
+      "heading": "How the temperatures were calculated",
+      "html": "Arithmetic means of the monthly mean surface air temperatures for 1996 to 2025 published by the British Antarctic Survey's READER project, for Faraday/Vernadsky, Rothera, Esperanza and Bellingshausen stations. The British Antarctic Survey does not publish these averages in this form; we calculated them from its tables."
+    }
+  ],
+  "sources": [
+    { "id": "iaato-sites", "url": "https://iaato.org/system/files?file=2025-07%2FATCM47_ip034_e.pdf", "label": "IAATO, ATCM 47 IP 34: five-year overview and 2024-25 season report on Antarctic Peninsula landing sites (2025)" },
+    { "id": "iaato-season", "url": "https://iaato.org/system/files?file=2026-05/ATCM48_ip200_rev1_e.pdf", "label": "IAATO, ATCM 48 IP 200 rev.1: overview of Antarctic vessel tourism, the 2025-26 season (2026)" },
+    { "id": "nasa-ice", "url": "https://science.nasa.gov/earth/antarctic-sea-ice-hits-annual-minimum-second-lowest-on-record", "label": "NASA Science: Antarctic sea ice hits annual minimum, second-lowest on record (2024)" },
+    { "id": "noaa-solcalc", "url": "https://gml.noaa.gov/grad/solcalc/", "label": "NOAA Global Monitoring Laboratory: solar calculator (method used for the daylight figures)" },
+    { "id": "bas-penguins", "url": "https://www.bas.ac.uk/wp-content/uploads/2015/05/Public-information-leaflet_PENGUINS_2017.pdf", "label": "British Antarctic Survey: Antarctic Penguins, public information leaflet (2017)" },
+    { "id": "johannessen-2022", "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8826076/", "label": "Johannessen et al. (2022): intra-season variations in humpback whale distribution and abundance in the West Antarctic Peninsula, Ecology and Evolution 12:e8571" },
+    { "id": "bas-reader-faraday", "url": "https://legacy.bas.ac.uk/met/READER/surface/Faraday.All.temperature.html", "label": "British Antarctic Survey READER: Faraday/Vernadsky monthly mean surface temperatures" },
+    { "id": "bas-reader-rothera", "url": "https://legacy.bas.ac.uk/met/READER/surface/Rothera.All.temperature.html", "label": "British Antarctic Survey READER: Rothera monthly mean surface temperatures" },
+    { "id": "bas-reader-esperanza", "url": "https://legacy.bas.ac.uk/met/READER/surface/Esperanza.All.temperature.html", "label": "British Antarctic Survey READER: Esperanza monthly mean surface temperatures" },
+    { "id": "bas-reader-bellingshausen", "url": "https://legacy.bas.ac.uk/met/READER/surface/Bellingshausen.All.temperature.html", "label": "British Antarctic Survey READER: Bellingshausen monthly mean surface temperatures" }
+  ]
+}

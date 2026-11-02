@@ -36,7 +36,7 @@ const list = (codes: string[]) => (codes?.length ? codes.map(countryName).join('
 >
   <div class="page">
     <div class="margin">
-      <LogHeader entry="Company record" published={firstListed} reviewed={checked} sourceCount={c.sources.length} extra={[{ label: 'Last checked', value: checked }]} />
+      <LogHeader entry="Company record" published={firstListed} reviewed={checked} sourceCount={c.sources.length} />
     </div>
     <article class="body">
       <h1>{c.name}</h1>
@@ -54,7 +54,7 @@ const list = (codes: string[]) => (codes?.length ? codes.map(countryName).join('
         <div><dt>Sells from</dt><dd>{list(c.sells_from)}</dd></div>
         <div><dt>Specialties</dt><dd>{c.niches.map((x) => nicheLabel[x] ?? x).join(', ')}</dd></div>
         <div><dt>Memberships</dt><dd>{c.memberships?.length ? c.memberships.map((m) => (typeof m === 'string' ? m : m.name)).join(', ') : 'None stated in the feed'}</dd></div>
-        <div><dt>Verification</dt><dd>{labels.tiers[c.tier]}{c.founder_owned && <>. {labels.founderOwned}</>}</dd></div>
+        <div><dt>Verification</dt><dd>{c.founder_owned ? labels.founderOwned : labels.tiers[c.tier]}</dd></div>
         <div><dt>Last checked</dt><dd><time datetime={checked}>{checked}</time></dd></div>
         <div><dt>Link</dt><dd><a href={link.href} rel={link.rel}>{link.label}</a>{link.sponsored && <> (sponsored link: Platinum listing)</>}</dd></div>
       </dl>

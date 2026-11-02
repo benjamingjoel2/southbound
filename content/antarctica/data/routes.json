@@ -1,0 +1,87 @@
+{
+  "published": "2026-11-02",
+  "reviewed": "2026-11-02",
+  "status": "reviewed",
+  "description": "The three common ways to reach the Antarctic Peninsula compared: sailing from Ushuaia, flying from Punta Arenas to King George Island (fly-cruise), and the long route via the Falklands and South Georgia. Crossing time, days on the ice and trip length, each with its source.",
+  "caption": "Departure ports and routes compared. Trip lengths and days on the ice are taken from one published example itinerary per route (operator sources, marked); other departures differ. Distances are great-circle figures we calculated, not sailed or flown routes.",
+  "legend": "Operator figures come from a single company's published itinerary and are an example, not an average. Southbound does not rank or recommend these operators by citing them.",
+  "routes": [
+    {
+      "key": "ushuaia",
+      "name": "Ushuaia: sail both ways",
+      "place": "ushuaia",
+      "values": {
+        "crossing": { "text": "By ship across the Drake Passage, out and back.", "sources": ["iaato-overview"] },
+        "distance": { "text": "About 1,008 km (544 nautical miles) to Deception Island, South Shetlands, in a straight line.", "sources": ["calc"] },
+        "time": { "text": "About two days each way at sea (example itinerary).", "sources": ["ow-classic"] },
+        "ice": { "text": "5 days (days 4–8 of 11) in the South Shetlands and on the Peninsula (example itinerary).", "sources": ["ow-classic"] },
+        "length": { "text": "11 days / 10 nights (example itinerary).", "sources": ["ow-classic"] },
+        "weather": { "text": "Open-ocean crossing in the belt of strong westerly winds.", "sources": ["noaa-forties", "bas-westerlies"] },
+        "note": { "text": "Most Antarctic voyages run on the Peninsula and depart from Ushuaia or, to a lesser extent, other ports.", "sources": ["iaato-overview"] }
+      }
+    },
+    {
+      "key": "fly",
+      "name": "Punta Arenas: fly-cruise via King George Island",
+      "place": "punta-arenas",
+      "values": {
+        "crossing": { "text": "By air from Punta Arenas to the Teniente R. Marsh airstrip on King George Island, both ways; the ship is boarded there.", "sources": ["iaato-air", "a21-air"] },
+        "distance": { "text": "About 1,225 km (661 nautical miles) Punta Arenas to the Marsh airstrip, in a straight line.", "sources": ["calc"] },
+        "time": { "text": "About 2 hours (operator charter) to about 2.5 hours (DAP King Air), weather permitting.", "sources": ["a21-air", "dap"] },
+        "ice": { "text": "Days 2–7 of 8, with four full cruising days (days 3–6) (example itinerary).", "sources": ["a21-air"] },
+        "length": { "text": "8 days / 7 nights (example itinerary); shorter and longer versions are sold.", "sources": ["a21-air"] },
+        "weather": { "text": "Flights and activities depend on weather and flight restrictions; delays are possible.", "sources": ["iaato-air", "dap"] },
+        "note": { "text": "IAATO recorded 170 southbound flights into the Marsh airstrip supporting 126 air-cruise voyages in 2025-26.", "sources": ["iaato-overview"] }
+      }
+    },
+    {
+      "key": "combo",
+      "name": "Ushuaia: Falklands, South Georgia and Antarctica",
+      "place": "stanley",
+      "values": {
+        "crossing": { "text": "By ship: Ushuaia to the Falklands, on to South Georgia, then south, returning across the Drake Passage.", "sources": ["ow-combo"] },
+        "distance": { "text": "About 1,452 km (784 nautical miles) Stanley to Grytviken, in a straight line. South Georgia is about 800 miles south-east of the Falklands.", "sources": ["calc", "gsgssi-faq"] },
+        "time": { "text": "Two sea days Stanley to South Georgia; two sea days back to Ushuaia at the end (example itinerary).", "sources": ["ow-combo"] },
+        "ice": { "text": "South Georgia days 7–10, South Orkneys day 12, Weddell Sea and Antarctic waters days 15–16, of 19, depending on ice (example itinerary).", "sources": ["ow-combo"] },
+        "length": { "text": "19 days / 18 nights (example itinerary).", "sources": ["ow-combo"] },
+        "weather": { "text": "Long open-ocean sections; South Georgia landings need a GSGSSI entry permit, usually arranged by the operator.", "sources": ["gsgssi-permit"] },
+        "note": { "text": "St Andrews Bay holds South Georgia's largest king penguin colony.", "sources": ["gsgssi-standrews"] }
+      }
+    }
+  ],
+  "rows": [
+    { "key": "crossing", "label": "How you cross" },
+    { "key": "distance", "label": "Distance" },
+    { "key": "time", "label": "Crossing time" },
+    { "key": "ice", "label": "Days on the ice" },
+    { "key": "length", "label": "Typical trip length" },
+    { "key": "weather", "label": "Main constraint" },
+    { "key": "note", "label": "Also worth knowing" }
+  ],
+  "notes": [
+    {
+      "heading": "Ross Sea voyages",
+      "html": "The Ross Sea, on the other side of the continent, is reached from New Zealand or Australia rather than South America. One published example is a 28-day voyage from Bluff, New Zealand. The Ross Sea region Marine Protected Area, covering 1.55 million km², was established on 1 December 2017. See <a href=\"/guide/regions\">the regions guide</a>."
+    },
+    {
+      "heading": "How distances were calculated",
+      "html": "Great-circle (shortest straight-line) distance between the two points, using the haversine formula with an Earth radius of 6,371 km. Ships and aircraft do not fly or sail these exact lines."
+    }
+  ],
+  "sources": [
+    { "id": "iaato-overview", "url": "https://iaato.org/system/files?file=2026-05/ATCM48_ip200_rev1_e.pdf", "label": "IAATO, ATCM 48 IP 200 rev.1: overview of Antarctic vessel tourism, the 2025-26 season (2026)" },
+    { "id": "iaato-air", "url": "https://iaato.org/system/files?file=2026-05/ATCM48_ip201_e.pdf", "label": "IAATO, ATCM 48 IP 201: deep field and air operators' overview, 2025-26 (2026)" },
+    { "id": "dap", "url": "https://dapairline.com/wp-content/uploads/2024/09/Descripcion-Programas-Antarticos.pdf", "label": "Aerovías DAP: Descripción Programas Antárticos (airline, in Spanish)" },
+    { "id": "a21-air", "url": "https://antarctica21.com/our-expeditions/classic-antarctica-air-cruise", "label": "Antarctica21: Classic Antarctica Air-Cruise itinerary (operator source)" },
+    { "id": "ow-classic", "url": "https://oceanwide-expeditions.com/antarctica/cruises/otl21-27-falkland-islands-south-georgia-antarctic-peninsula", "label": "Oceanwide Expeditions: Antarctica, Discovery and Learning voyage, OTL21-27 itinerary (operator source)" },
+    { "id": "ow-combo", "url": "https://oceanwide-expeditions.com/antarctica/cruises/otl26-27-falkland-islands-south-georgia-antarctica", "label": "Oceanwide Expeditions: Falkland Islands, South Georgia, Antarctica, OTL26-27 itinerary (operator source)" },
+    { "id": "noaa-forties", "url": "https://oceanservice.noaa.gov/facts/roaring-forties.html", "label": "NOAA National Ocean Service: What are the Roaring Forties?" },
+    { "id": "bas-westerlies", "url": "https://www.bas.ac.uk/news/southern-hemisphere-westerly-winds-likely-to-intensify-as-climate-warms/", "label": "British Antarctic Survey: Southern Hemisphere westerly winds likely to intensify as climate warms" },
+    { "id": "gsgssi-faq", "url": "https://gov.gs/frequently-asked-questions/", "label": "Government of South Georgia and the South Sandwich Islands: frequently asked questions" },
+    { "id": "gsgssi-permit", "url": "https://gov.gs/entry-control-order-permit-application/", "label": "Government of South Georgia and the South Sandwich Islands: entry control order, permit application" },
+    { "id": "gsgssi-standrews", "url": "https://gov.gs/wp-content/uploads/2022/10/St-Andrews-Bay.pdf", "label": "Government of South Georgia and the South Sandwich Islands: St Andrews Bay visitor management plan (2015)" },
+    { "id": "heritage-ross", "url": "https://heritage-expeditions.com/destinations/antarctica-travel/ross-sea-antarctica-cruise", "label": "Heritage Expeditions: Ross Sea voyage itinerary (operator source)" },
+    { "id": "doc-ross", "url": "https://www.doc.govt.nz/about-us/international-agreements/antarctica-treaty-system/ross-sea-region-marine-protected-area/", "label": "New Zealand Department of Conservation: Ross Sea region Marine Protected Area" },
+    { "id": "calc", "url": "https://www.openstreetmap.org/relation/11347693", "label": "Calculated by Southbound: great-circle distances between OpenStreetMap positions (haversine, R = 6,371 km)" }
+  ]
+}
