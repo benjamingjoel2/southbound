@@ -44,9 +44,12 @@ const sources = [
       {n === 0 ? (
         <p class="empty">No verified company in the directory feed carries this specialty yet. The list stays empty rather than padded.</p>
       ) : (
+        <>
+        <h2>The list</h2>
         <ol class="ranked" aria-label={niche.title}>
           {ranked.map((c, i) => <CompanyEntry c={c} position={i + 1} />)}
         </ol>
+        </>
       )}
       {unranked.length > 0 && (
         <>
