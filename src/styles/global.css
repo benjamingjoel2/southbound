@@ -384,3 +384,10 @@ main > .band:last-child + * { margin-top: 0; }
 @media (min-width: 64rem) { .art-head:not(:has(.photo)) { grid-template-columns: minmax(0, 1fr); min-height: 0; } .art-head:not(:has(.photo)) .ah-text { padding-left: calc(var(--gutter) + 15rem); } }
 .art-head .answer { max-width: 38rem; }
 .page.after-head { padding-top: 2.25rem; }
+
+/* Chart plates */
+.photo.chart { background: #e3eef5; }
+.photo.chart figcaption { position: static; background: var(--ice-2); color: var(--navy-2); border-top: 1px solid var(--navy); }
+.photo.chart figcaption a { color: var(--navy-2); }
+@media (min-width: 64rem) { .art-head .photo.chart img { object-fit: contain; height: auto; max-height: 40rem; margin: 0 auto; } .art-head .photo.chart { display: flex; flex-direction: column; justify-content: center; } }
+.compare-chart { max-width: 46rem; margin-top: 2rem; }

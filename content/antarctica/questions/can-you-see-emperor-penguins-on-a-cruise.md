@@ -10,6 +10,7 @@ sources:
 published: 2026-11-02
 reviewed: 2026-11-02
 status: reviewed
+chart: snow-hill
 order: 5
 related: [november-or-january-for-penguins]
 ---

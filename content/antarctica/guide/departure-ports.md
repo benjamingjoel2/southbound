@@ -17,6 +17,7 @@ sources:
 published: 2026-11-02
 reviewed: 2026-11-02
 status: reviewed
+chart: ports-routes
 order: 3
 places: [ushuaia, punta-arenas, king-george-island, marsh-aerodrome, stanley, bluff]
 ---

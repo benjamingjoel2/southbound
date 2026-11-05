@@ -1,0 +1,26 @@
+---
+// Chart plates drawn by Southbound (scripts/make-charts.mjs) from
+// OpenStreetMap positions and Natural Earth coastlines (public domain).
+import charts from '../../public/charts/charts.json';
+interface Props { name: string; eager?: boolean; class?: string; caption?: string }
+const { name, eager = false, class: cls, caption } = Astro.props;
+const c = charts[name as keyof typeof charts];
+if (!c) throw new Error(`Unknown chart "${name}"`);
+const titles: Record<string, string> = {
+  'ports-routes': 'Departure routes: Ushuaia by sea, Punta Arenas by air',
+  'antarctic-circle': 'Western Antarctic Peninsula and the Antarctic Circle',
+  'snow-hill': 'Northern Antarctic Peninsula and Snow Hill Island',
+};
+const alt: Record<string, string> = {
+  'ports-routes': 'Chart of southern South America and the Antarctic Peninsula. A dashed sea route runs from Ushuaia to Deception Island in the South Shetland Islands, about 1,008 km in a straight line; a dotted air route runs from Punta Arenas to the King George Island airstrip, about 1,225 km. Stanley and Port Lockroy are also marked.',
+  'antarctic-circle': 'Chart of the western Antarctic Peninsula with a line marking the Antarctic Circle at about 66 degrees 34 minutes south, south of Port Lockroy and the Lemaire Channel. King George Island, Deception Island and Snow Hill Island are marked.',
+  'snow-hill': 'Chart of the northern Antarctic Peninsula showing Snow Hill Island on the eastern, Weddell Sea side, with King George Island, Deception Island and Port Lockroy for reference.',
+};
+---
+<figure class:list={['photo', 'chart', cls]}>
+  <img src={`/charts/${name}.svg`} width={c.width} height={c.height} alt={alt[name] ?? titles[name]} loading={eager ? 'eager' : 'lazy'} fetchpriority={eager ? 'high' : 'auto'} decoding="async" />
+  <figcaption>
+    <span>{caption ?? titles[name]}</span>
+    <span class="credit">Chart: Southbound, from <a href="https://www.openstreetmap.org/copyright" rel="noopener">OpenStreetMap</a> positions and <a href="https://www.naturalearthdata.com/" rel="noopener">Natural Earth</a> coastlines</span>
+  </figcaption>
+</figure>

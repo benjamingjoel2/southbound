@@ -62,6 +62,8 @@ The site reads `data/feed.json` if it exists, otherwise `data/feed.mock.json`. `
 | `order` | no | Sort order in indexes |
 | `places[]` | guide only | Keys into `content/antarctica/data/places.json`; listed with coordinates |
 | `related[]` | questions only | Slugs of related questions |
+| `image` | no | Key of a photo in `content/antarctica/data/images.json` |
+| `chart` | no | Key of a chart plate in `public/charts/` (shown when there is no photo) |
 
 ## Destination data files (not company facts)
 
@@ -71,3 +73,4 @@ The site reads `data/feed.json` if it exists, otherwise `data/feed.mock.json`. `
 - `routes.json`: the port and route comparison table
 - `glance.json`: "Antarctica at a glance" on the home page
 - `places.json`: coordinates for every place named on the site
+- `images.json`: every photo, with credit, licence and source

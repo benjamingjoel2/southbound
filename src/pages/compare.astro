@@ -3,6 +3,7 @@ import Base from '../layouts/Base.astro';
 import LogHeader from '../components/LogHeader.astro';
 import Sources from '../components/Sources.astro';
 import RouteTable from '../components/RouteTable.astro';
+import Chart from '../components/Chart.astro';
 import routes from '../../content/antarctica/data/routes.json';
 import { articleNode } from '../lib/schema.mjs';
 import { publishedCompanies, countryName } from '../lib/feed.mjs';
@@ -26,6 +27,7 @@ const reviewed = routes.reviewed > feedDate() ? routes.reviewed : feedDate();
       <h1>{title}</h1>
       <p class="lede">{routes.description}</p>
       <RouteTable />
+      <Chart name="ports-routes" class="compare-chart" />
       <div class="prose">
         {routes.notes.map((n) => <><h2>{n.heading}</h2><p set:html={n.html} /></>)}
       </div>
