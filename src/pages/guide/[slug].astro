@@ -5,7 +5,6 @@ import LogHeader from '../../components/LogHeader.astro';
 import Sources from '../../components/Sources.astro';
 import PlaceList from '../../components/PlaceList.astro';
 import Photo from '../../components/Photo.astro';
-import Chart from '../../components/Chart.astro';
 import { guidePages } from '../../lib/content';
 import { articleNode } from '../../lib/schema.mjs';
 import { isoDate, placeCoord } from '../../lib/format.mjs';
@@ -37,7 +36,6 @@ const prev = all[idx - 1];
 >
   <header class="art-head">
     {d.image && <Photo name={d.image} eager sizes="(min-width: 64rem) 50vw, 100vw" widths={[480, 720, 960, 1280]} />}
-    {!d.image && d.chart && <Chart name={d.chart} eager />}
     <div class="ah-text">
       <p class="kicker">Guide {String(idx + 1).padStart(2, '0')} · Antarctica</p>
       <h1>{d.title}</h1>

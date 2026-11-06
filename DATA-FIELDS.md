@@ -63,7 +63,6 @@ The site reads `data/feed.json` if it exists, otherwise `data/feed.mock.json`. `
 | `places[]` | guide only | Keys into `content/antarctica/data/places.json`; listed with coordinates |
 | `related[]` | questions only | Slugs of related questions |
 | `image` | no | Key of a photo in `content/antarctica/data/images.json` |
-| `chart` | no | Key of a chart plate in `public/charts/` (shown when there is no photo) |
 
 ## Destination data files (not company facts)
 

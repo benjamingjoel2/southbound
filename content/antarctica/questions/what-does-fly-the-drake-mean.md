@@ -14,7 +14,6 @@ sources:
 published: 2026-11-02
 reviewed: 2026-11-02
 status: reviewed
-chart: ports-routes
 order: 3
 related: [is-the-drake-passage-rough, travel-insurance-evacuation-cover]
 ---
