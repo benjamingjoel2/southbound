@@ -13,7 +13,6 @@ sources:
 published: 2026-11-02
 reviewed: 2026-11-02
 status: reviewed
-chart: antarctic-circle
 order: 6
 places: [antarctic-circle, lemaire-channel, port-lockroy]
 ---

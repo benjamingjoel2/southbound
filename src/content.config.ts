@@ -18,8 +18,6 @@ const common = {
   order: z.number().default(100),
   // Key into content/antarctica/data/images.json
   image: z.string().optional(),
-  // Key of a chart plate in public/charts (used when there is no photo)
-  chart: z.string().optional(),
 };
 
 const guide = defineCollection({
