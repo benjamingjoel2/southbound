@@ -142,7 +142,7 @@ hr { border: 0; border-top: 1px solid var(--glacier-2); margin: 2rem 0; }
 /* ---------- Home hero: split, text left, photo right (after Narra / Roadbook) ---------- */
 .hero { display: grid; grid-template-columns: minmax(0, 1fr); border-bottom: 1px solid var(--navy); }
 .hero-text { padding: 2.5rem var(--gutter) 2.5rem; display: flex; flex-direction: column; justify-content: flex-end; }
-.hero h1 { font-size: clamp(2.4rem, 1.2rem + 4.2vw, 5.4rem); line-height: 0.98; letter-spacing: -0.025em; max-width: 12ch; }
+.hero h1 { font-size: clamp(2.6rem, 1.2rem + 5.4vw, 6.4rem); line-height: 0.98; letter-spacing: -0.025em; max-width: 12ch; }
 .hero .lede { font-size: clamp(1.15rem, 1rem + 0.5vw, 1.45rem); max-width: 34rem; margin-top: 1.5rem; }
 .hero-meta { font: 400 0.75rem/1.6 var(--mono); text-transform: uppercase; letter-spacing: 0.08em; color: var(--navy-2); margin-top: 1.75rem; display: flex; flex-wrap: wrap; gap: 0.2rem 1.25rem; }
 .hero-cta { margin-top: 2rem; }
