@@ -1,5 +1,5 @@
 {
-  "_comment": "Every photo on the site, with its credit and licence. Only images we own or are licensed to use. No scraped images, no photos of identifiable people. CC BY / CC BY-SA licences require the credit line, which the Photo component prints under each image. Resized derivatives of CC BY-SA photos are shared under the same licence. Unsplash photos may be added with licence 'Unsplash License' (credit kept here, not required on the page).",
+  "_comment": "Every photo on the site, with its credit and licence. Only images we own or are licensed to use. No scraped images, no photos of identifiable people. CC BY / CC BY-SA licences require the credit, which is listed on the Photo credits page (/photo-credits, linked from the footer). Resized derivatives of CC BY-SA photos are shared under the same licence. Unsplash photos may be added with licence 'Unsplash License' (credit kept here, not required on the page).",
   "images": {
     "lemaire": {
       "file": "lemaire-channel.jpg",
