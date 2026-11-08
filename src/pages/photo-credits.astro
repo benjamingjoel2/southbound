@@ -1,0 +1,37 @@
+---
+// One page listing every photo on the site with its author, licence and
+// source (the CC BY / CC BY-SA attribution). Generated from
+// content/antarctica/data/images.json; "used on" comes from the pages that
+// show each photo.
+import Doc from '../layouts/Doc.astro';
+import data from '../../content/antarctica/data/images.json';
+import { site } from '../../site.config.mjs';
+import { guidePages, questionPages } from '../lib/content';
+
+const guides = await guidePages();
+const questions = await questionPages();
+const usedOn: Record<string, { href: string; label: string }[]> = {};
+const add = (key: string | undefined, href: string, label: string) => {
+  if (!key) return;
+  (usedOn[key] ??= []).some((u) => u.href === href) || usedOn[key].push({ href, label });
+};
+// Home shows two photos directly, plus the lead guide/question images.
+add('lemaire', '/', 'Home');
+add('drake-iceberg', '/', 'Home');
+for (const e of guides) { add(e.data.image, '/', 'Home'); add(e.data.image, '/guide', 'Guides'); add(e.data.image, `/guide/${e.id}`, e.data.title); }
+for (const e of questions) { add(e.data.image, '/', 'Home'); add(e.data.image, `/questions/${e.id}`, e.data.title); }
+const photos = Object.entries(data.images);
+---
+<Doc title="Photo credits" path="/photo-credits" entry="Photo credits" published={site.firstPublished} reviewed="2026-11-08"
+  description={`Every photograph on ${site.name}, with its author, licence and source.`}>
+  <p>Photos are used under the licences shown. Resized versions of CC BY-SA photos are shared under the same licence.</p>
+  <ul class="credits-list">
+    {photos.map(([key, p]) => (
+      <li>
+        <strong>{p.caption}</strong><br />
+        Photo: <a href={p.source} rel="noopener">{p.credit}</a>, <a href={p.licenceUrl} rel="license noopener">{p.licence}</a><br />
+        {usedOn[key]?.length ? <>Used on: {usedOn[key].map((u, i) => <>{i > 0 && ', '}<a href={u.href}>{u.label}</a></>)}</> : null}
+      </li>
+    ))}
+  </ul>
+</Doc>

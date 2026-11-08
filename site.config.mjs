@@ -142,6 +142,7 @@ export const footerNav = [
   { href: '/privacy', label: 'Privacy Policy' },
   { href: '/terms', label: 'Terms' },
   { href: '/cookies', label: 'Cookie Policy' },
+  { href: '/photo-credits', label: 'Photo credits' },
 ];
 
 export default { site, publisher, labels, disclosure, legal, nav, footerNav };

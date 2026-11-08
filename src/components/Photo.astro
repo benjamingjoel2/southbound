@@ -1,7 +1,9 @@
 ---
 // Every photo on the site goes through here: right-sized AVIF/WebP with
-// width/height (no layout shift), lazy below the fold, and a credit line
-// taken from content/antarctica/data/images.json (licence + source).
+// width/height (no layout shift), lazy below the fold, and a descriptive
+// caption. Photo credits (licence + source, from
+// content/antarctica/data/images.json) are listed on /photo-credits, linked
+// from the footer, not on the photos.
 import { Picture } from 'astro:assets';
 import data from '../../content/antarctica/data/images.json';
 import { placeCoord } from '../lib/format.mjs';
@@ -39,7 +41,6 @@ const coord = meta.place ? placeCoord(meta.place).coord : null;
   {caption && (
     <figcaption>
       <span>{meta.caption}{coord && <> · <span class="coord">{coord}</span></>}</span>
-      <span class="credit">Photo: <a href={meta.source} rel="noopener">{meta.credit}</a>, <a href={meta.licenceUrl} rel="license noopener">{meta.licence}</a></span>
     </figcaption>
   )}
 </figure>
